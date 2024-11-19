@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
+    <width>1305</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="auto_list_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>20</y>
       <width>701</width>
       <height>41</height>
@@ -208,7 +208,7 @@
    <widget class="QPushButton" name="user_list_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>80</y>
       <width>701</width>
       <height>41</height>
@@ -399,7 +399,7 @@
    <widget class="QPushButton" name="partner_list_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>140</y>
       <width>701</width>
       <height>41</height>
@@ -590,7 +590,7 @@
    <widget class="QPushButton" name="staff_list_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>200</y>
       <width>701</width>
       <height>41</height>
@@ -781,7 +781,7 @@
    <widget class="QPushButton" name="setting_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>260</y>
       <width>701</width>
       <height>41</height>
@@ -972,7 +972,7 @@
    <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>10</x>
       <y>320</y>
       <width>701</width>
       <height>41</height>
@@ -1163,8 +1163,8 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>1270</x>
-      <y>-10</y>
+      <x>720</x>
+      <y>-20</y>
       <width>21</width>
       <height>1511</height>
      </rect>
@@ -1176,7 +1176,7 @@
    <widget class="QLabel" name="label_pic">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>750</x>
       <y>20</y>
       <width>530</width>
       <height>530</height>
@@ -1185,6 +1185,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="pixmap">
+     <pixmap resource="resourses.qrc">:/images/assets/wall_pics/main.png</pixmap>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1192,13 +1195,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
+     <width>1305</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resourses.qrc"/>
+ </resources>
  <connections/>
 </ui>
