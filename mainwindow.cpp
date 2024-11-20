@@ -34,7 +34,11 @@ void MainWindow::changeImage()
         ":/images/assets/wall_pics/1.jpg", ":/images/assets/wall_pics/2.jpg", ":/images/assets/wall_pics/3.jpg",
         ":/images/assets/wall_pics/4.jpg", ":/images/assets/wall_pics/5.jpg", ":/images/assets/wall_pics/6.jpg",
         ":/images/assets/wall_pics/7.jpg", ":/images/assets/wall_pics/8.jpg", ":/images/assets/wall_pics/9.jpg",
-        ":/images/assets/wall_pics/10.jpg", ":/images/assets/wall_pics/11.jpg", ":/images/assets/wall_pics/12.jpg"
+        ":/images/assets/wall_pics/10.jpg", ":/images/assets/wall_pics/11.jpg", ":/images/assets/wall_pics/12.jpg",
+        ":/images/assets/wall_pics/13.jpg", ":/images/assets/wall_pics/14.jpg", ":/images/assets/wall_pics/15.jpg",
+        ":/images/assets/wall_pics/16.jpg", ":/images/assets/wall_pics/17.jpg", ":/images/assets/wall_pics/18.jpg",
+        ":/images/assets/wall_pics/19.jpg", ":/images/assets/wall_pics/20.jpg", ":/images/assets/wall_pics/21.jpg",
+        ":/images/assets/wall_pics/22.jpg", ":/images/assets/wall_pics/23.jpg", ":/images/assets/wall_pics/24.jpg"
     };
 
     static int currentIndex = 0;
