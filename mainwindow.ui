@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1305</width>
+    <width>1312</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,12 +17,21 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <spacer name="horizontalSpacer_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Policy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>20</width>
         <height>20</height>
        </size>
       </property>
@@ -47,6 +56,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="auto_list_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -254,6 +269,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="user_list_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -461,6 +482,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="partner_list_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -668,6 +695,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="staff_list_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -875,6 +908,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="setting_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -1082,6 +1121,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="exit_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>701</width>
@@ -1327,6 +1372,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label_pic">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>530</width>
@@ -1339,18 +1390,30 @@
         <property name="pixmap">
          <pixmap resource="resourses.qrc">:/images/assets/wall_pics/main.png</pixmap>
         </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
      <spacer name="horizontalSpacer_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Policy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>20</width>
         <height>20</height>
        </size>
       </property>
@@ -1363,7 +1426,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1305</width>
+     <width>1312</width>
      <height>21</height>
     </rect>
    </property>
