@@ -5,6 +5,7 @@
 #include <QRandomGenerator>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QSoundEffect>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
+
+    menuSoundEffect = new QSoundEffect(this);
+    exitSoundEffect = new QSoundEffect(this);
+    menuSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/SelectingMenuSound.wav"));
+    exitSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/ExitMenuSound.wav"));
+
+    menuSoundEffect->setVolume(1.0);
 
     opacityEffect = new QGraphicsOpacityEffect(this);
     ui->label_pic->setGraphicsEffect(opacityEffect);
@@ -25,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete menuSoundEffect;
     delete ui;
 }
 
@@ -62,16 +71,53 @@ void MainWindow::changeImage()
     });
 }
 
+void MainWindow::playMenuSound()
+{
+    menuSoundEffect->play();
+}
+
+void MainWindow::playExitSound()
+{
+    exitSoundEffect->play();
+}
+
 void MainWindow::on_auto_list_button_clicked()
 {
+    playMenuSound();
+}
+
+void MainWindow::on_user_list_button_clicked()
+{
+    playMenuSound();
+}
+
+void MainWindow::on_partner_list_button_clicked()
+{
+    playMenuSound();
+}
+
+void MainWindow::on_staff_list_button_clicked()
+{
+    playMenuSound();
+}
+
+void MainWindow::on_setting_button_clicked()
+{
+    playMenuSound();
 }
 
 void MainWindow::on_exit_button_clicked()
 {
+    playExitSound();
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Выход из приложения", "Выйти из приложения?",
                                   QMessageBox::Ok | QMessageBox::Cancel);
-    if (reply == QMessageBox::Ok) {
+    if (reply == QMessageBox::Ok)
+    {
         QApplication::quit();
+    }
+    if (reply == QMessageBox::Cancel)
+    {
+        playMenuSound();
     }
 }
