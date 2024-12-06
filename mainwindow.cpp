@@ -1,11 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
-#include <QTimer>
-#include <QRandomGenerator>
-#include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
-#include <QSoundEffect>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -83,26 +79,31 @@ void MainWindow::playExitSound()
 
 void MainWindow::on_auto_list_button_clicked()
 {
+    stopSlideShowAndResizeButtons();
     playMenuSound();
 }
 
 void MainWindow::on_user_list_button_clicked()
 {
+    stopSlideShowAndResizeButtons();
     playMenuSound();
 }
 
 void MainWindow::on_partner_list_button_clicked()
 {
+    stopSlideShowAndResizeButtons();
     playMenuSound();
 }
 
 void MainWindow::on_staff_list_button_clicked()
 {
+    stopSlideShowAndResizeButtons();
     playMenuSound();
 }
 
 void MainWindow::on_setting_button_clicked()
 {
+    stopSlideShowAndResizeButtons();
     playMenuSound();
 }
 
@@ -119,5 +120,23 @@ void MainWindow::on_exit_button_clicked()
     if (reply == QMessageBox::Cancel)
     {
         playMenuSound();
+    }
+}
+
+void MainWindow::stopSlideShowAndResizeButtons()
+{
+    timer->stop();
+    ui->label_pic->clear();
+
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+
+    for (QPushButton *button : buttons) {
+        if (button->minimumWidth() != 300) {
+            QPropertyAnimation *animation = new QPropertyAnimation(button, "minimumWidth");
+            animation->setDuration(500);
+            animation->setStartValue(button->minimumWidth());
+            animation->setEndValue(300);
+            animation->start(QAbstractAnimation::DeleteWhenStopped);
+        }
     }
 }
