@@ -3,6 +3,9 @@
 #include <QMessageBox>
 #include <QPropertyAnimation>
 #include <QLabel>
+#include <QPushButton>
+#include <QApplication>
+#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,18 +39,14 @@ MainWindow::MainWindow(QWidget *parent)
     changeImage();
 
     // Подключение сигналов для optionsWidget
-    connect(optionsWidget, &OptionsWidget::backgroundColorChanged, this, [](const QColor &color){
-        // Обработка изменения цвета фона
-    });
-    connect(optionsWidget, &OptionsWidget::buttonColorChanged, this, [](const QColor &color){
-        // Обработка изменения цвета кнопок
-    });
-    connect(optionsWidget, &OptionsWidget::fontSizeChanged, this, [](int size){
-        // Обработка изменения размера шрифта
-    });
-    connect(optionsWidget, &OptionsWidget::resetSettings, this, [](){
-        // Обработка сброса настроек
-    });
+    connect(optionsWidget, &OptionsWidget::backgroundColorChanged, this, &MainWindow::changeBackgroundColor);
+    connect(optionsWidget, &OptionsWidget::buttonColorChanged, this, &MainWindow::changeButtonColor);
+    connect(optionsWidget, &OptionsWidget::fontSizeChanged, this, &MainWindow::changeButtonFont);
+    connect(optionsWidget, &OptionsWidget::buttonSizeChanged, this, &MainWindow::changeButtonSize);
+    connect(optionsWidget, &OptionsWidget::resetSettings, this, &MainWindow::resetSettings);
+    connect(optionsWidget, &OptionsWidget::closeOptions, this, &MainWindow::onOptionsClose);
+    connect(optionsWidget, &OptionsWidget::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(optionsWidget, &OptionsWidget::playExitSound, this, &MainWindow::playExitSound);
 }
 
 MainWindow::~MainWindow()
@@ -168,9 +167,109 @@ void MainWindow::stopSlideShowAndResizeButtons()
 void MainWindow::showOptionsWidget()
 {
     ui->workZoneWidget->setCurrentWidget(optionsWidget);
+    slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
+    timer->start(5000);
+
+    changeImage();
 }
 
 void MainWindow::showSliderWidget()
 {
     ui->workZoneWidget->setCurrentWidget(slideWidget);
+}
+
+void MainWindow::onOptionsClose() {
+    showSliderWidget();
+    restoreButtonSizes();
+}
+
+void MainWindow::changeBackgroundColor(const QColor &color) {
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, color);
+    this->setPalette(palette);
+    updateTextColor();
+}
+
+void MainWindow::changeButtonColor(const QColor &color) {
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+
+    for (QPushButton *button : buttons) {
+        QPalette palette = button->palette();
+        palette.setColor(QPalette::Button, color);
+        button->setPalette(palette);
+    }
+    updateTextColor();
+}
+
+void MainWindow::changeButtonSize(int size) {
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+    for (QPushButton *button : buttons) {
+        button->setMinimumSize(size, button->height());
+    }
+}
+
+void MainWindow::changeButtonFont(int size) {
+    QFont font = QApplication::font();
+    font.setPointSize(size);
+    QApplication::setFont(font);
+
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+    for (QPushButton *button : buttons) {
+        button->setFont(font);
+    }
+}
+
+void MainWindow::resetSettings() {
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, QColor("#1e1e1e"));
+    this->setPalette(palette);
+
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+
+    for (QPushButton *button : buttons) {
+        QPalette buttonPalette = button->palette();
+        buttonPalette.setColor(QPalette::Button, QColor("#545454"));
+        button->setPalette(buttonPalette);
+    }
+
+    QFont font = this->font();
+    font.setPointSize(12);
+    this->setFont(font);
+}
+
+void MainWindow::restoreButtonSizes() {
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+    for (QPushButton *button : buttons) {
+        if (button->minimumWidth() != 701) {
+            QPropertyAnimation *animation = new QPropertyAnimation(button, "minimumWidth");
+            animation->setDuration(500);
+            animation->setStartValue(button->minimumWidth());
+            animation->setEndValue(701);
+            animation->start(QAbstractAnimation::DeleteWhenStopped);
+        }
+    }
+}
+
+void MainWindow::updateTextColor()
+{
+    QPalette windowPalette = this->palette();
+    QColor backgroundColor = windowPalette.color(QPalette::Window);
+    QColor buttonColor = windowPalette.color(QPalette::Button);
+
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+
+    for (QPushButton *button : buttons) {
+        QPalette buttonPalette = button->palette();
+        QColor textColor = Qt::black;
+
+        if (backgroundColor.lightness() < 128 || buttonColor.lightness() < 128) {
+            textColor = Qt::white;
+        }
+
+        buttonPalette.setColor(QPalette::ButtonText, textColor);
+        button->setPalette(buttonPalette);
+    }
 }

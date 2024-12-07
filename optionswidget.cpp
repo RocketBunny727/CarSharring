@@ -15,6 +15,7 @@ OptionsWidget::~OptionsWidget()
 
 void OptionsWidget::on_backgroundColorButton_clicked()
 {
+    emit playMenuSound();
     QColor color = QColorDialog::getColor();
     if (color.isValid()) {
         emit backgroundColorChanged(color);
@@ -23,6 +24,7 @@ void OptionsWidget::on_backgroundColorButton_clicked()
 
 void OptionsWidget::on_buttonColorButton_clicked()
 {
+    emit playMenuSound();
     QColor color = QColorDialog::getColor();
     if (color.isValid()) {
         emit buttonColorChanged(color);
@@ -31,15 +33,24 @@ void OptionsWidget::on_buttonColorButton_clicked()
 
 void OptionsWidget::on_fontSizeSpinBox_valueChanged(int value)
 {
+    emit playMenuSound();
     emit fontSizeChanged(value);
+}
+
+void OptionsWidget::on_buttonSizeSlider_valueChanged(int value)
+{
+    emit playMenuSound();
+    emit buttonSizeChanged(value);
 }
 
 void OptionsWidget::on_resetButton_clicked()
 {
+    emit playMenuSound();
     emit resetSettings();
 }
 
 void OptionsWidget::on_closeButton_clicked()
 {
-    emit closeOptions();  // Сигнал для закрытия опций
+    emit playExitSound();
+    emit closeOptions();
 }

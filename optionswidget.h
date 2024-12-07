@@ -20,15 +20,19 @@ signals:
     void backgroundColorChanged(const QColor &color);
     void buttonColorChanged(const QColor &color);
     void fontSizeChanged(int size);
+    void buttonSizeChanged(int size);
     void resetSettings();
-    void closeOptions();  // Новый сигнал для закрытия опций
+    void closeOptions();
+    void playMenuSound();
+    void playExitSound();
 
 private slots:
     void on_backgroundColorButton_clicked();
     void on_buttonColorButton_clicked();
     void on_fontSizeSpinBox_valueChanged(int value);
+    void on_buttonSizeSlider_valueChanged(int value);
     void on_resetButton_clicked();
-    void on_closeButton_clicked();  // Новый слот для кнопки закрытия
+    void on_closeButton_clicked();
 
 private:
     Ui::OptionsWidget *ui;

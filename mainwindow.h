@@ -33,6 +33,14 @@ private slots:
     void stopSlideShowAndResizeButtons();
     void showOptionsWidget();
     void showSliderWidget();
+    void onOptionsClose();
+    void changeBackgroundColor(const QColor &color);
+    void changeButtonColor(const QColor &color);
+    void changeButtonSize(int size);
+    void changeButtonFont(int size);
+    void resetSettings();
+    void restoreButtonSizes();
+    void updateTextColor();
 
 private:
     Ui::MainWindow *ui;
