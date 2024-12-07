@@ -2,29 +2,52 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QPropertyAnimation>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , optionsWidget(new OptionsWidget(this))
+    , slideWidget(new Slide(this))
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
 
+    // Добавление виджетов в stackedWidget
+    ui->workZoneWidget->addWidget(slideWidget);
+    ui->workZoneWidget->addWidget(optionsWidget);
+    ui->workZoneWidget->setCurrentWidget(slideWidget);  // По умолчанию показываем slideWidget
+
+    // Настройка звуков
     menuSoundEffect = new QSoundEffect(this);
     exitSoundEffect = new QSoundEffect(this);
     menuSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/SelectingMenuSound.wav"));
     exitSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/ExitMenuSound.wav"));
-
     menuSoundEffect->setVolume(1.0);
 
+    // Настройка смены изображений
     opacityEffect = new QGraphicsOpacityEffect(this);
-    ui->label_pic->setGraphicsEffect(opacityEffect);
+    slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
     timer->start(5000);
 
     changeImage();
+
+    // Подключение сигналов для optionsWidget
+    connect(optionsWidget, &OptionsWidget::backgroundColorChanged, this, [](const QColor &color){
+        // Обработка изменения цвета фона
+    });
+    connect(optionsWidget, &OptionsWidget::buttonColorChanged, this, [](const QColor &color){
+        // Обработка изменения цвета кнопок
+    });
+    connect(optionsWidget, &OptionsWidget::fontSizeChanged, this, [](int size){
+        // Обработка изменения размера шрифта
+    });
+    connect(optionsWidget, &OptionsWidget::resetSettings, this, [](){
+        // Обработка сброса настроек
+    });
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +80,7 @@ void MainWindow::changeImage()
     fadeOut->start(QAbstractAnimation::DeleteWhenStopped);
 
     connect(fadeOut, &QPropertyAnimation::finished, this, [this, newImage] {
-        ui->label_pic->setPixmap(QPixmap(newImage).scaled(ui->label_pic->size(), Qt::KeepAspectRatio));
+        slideWidget->findChild<QLabel*>("label_pic")->setPixmap(QPixmap(newImage).scaled(slideWidget->findChild<QLabel*>("label_pic")->size(), Qt::KeepAspectRatio));
 
         QPropertyAnimation *fadeIn = new QPropertyAnimation(opacityEffect, "opacity");
         fadeIn->setDuration(1000);
@@ -104,6 +127,7 @@ void MainWindow::on_staff_list_button_clicked()
 void MainWindow::on_setting_button_clicked()
 {
     stopSlideShowAndResizeButtons();
+    showOptionsWidget();
     playMenuSound();
 }
 
@@ -126,7 +150,7 @@ void MainWindow::on_exit_button_clicked()
 void MainWindow::stopSlideShowAndResizeButtons()
 {
     timer->stop();
-    ui->label_pic->clear();
+    slideWidget->findChild<QLabel*>("label_pic")->clear();
 
     QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
 
@@ -139,4 +163,14 @@ void MainWindow::stopSlideShowAndResizeButtons()
             animation->start(QAbstractAnimation::DeleteWhenStopped);
         }
     }
+}
+
+void MainWindow::showOptionsWidget()
+{
+    ui->workZoneWidget->setCurrentWidget(optionsWidget);
+}
+
+void MainWindow::showSliderWidget()
+{
+    ui->workZoneWidget->setCurrentWidget(slideWidget);
 }

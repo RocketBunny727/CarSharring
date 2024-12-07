@@ -1374,12 +1374,9 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_pic">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <widget class="QStackedWidget" name="workZoneWidget">
+        <property name="enabled">
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -1387,15 +1384,8 @@
           <height>530</height>
          </size>
         </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="resourses.qrc">:/images/assets/wall_pics/main.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
+        <widget class="QWidget" name="page"/>
+        <widget class="QWidget" name="page_2"/>
        </widget>
       </item>
      </layout>
@@ -1403,7 +1393,7 @@
     <item>
      <spacer name="horizontalSpacer_3">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -1412,7 +1402,7 @@
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Policy::Fixed</enum>
+       <enum>QSizePolicy::Policy::Expanding</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
@@ -1436,8 +1426,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="resourses.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
