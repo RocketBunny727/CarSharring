@@ -35,6 +35,11 @@ private slots:
     void on_buttonSizeSlider_valueChanged(int value);
     void on_resetButton_clicked();
     void on_closeButton_clicked();
+    void updateTextColor();
+
+public slots:
+    void updateButtonColor(const QColor &color);
+    void updateButtonFontColor(const QColor &color);
 
 private:
     Ui::OptionsWidget *ui;

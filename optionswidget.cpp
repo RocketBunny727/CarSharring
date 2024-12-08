@@ -63,5 +63,46 @@ void OptionsWidget::on_closeButton_clicked()
     emit closeOptions();
 }
 
+void OptionsWidget::updateButtonColor(const QColor &color) {
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    for (QPushButton *button : buttons) {
+        QPalette palette = button->palette();
+        palette.setColor(QPalette::Button, color);
+        button->setPalette(palette);
+    }
+    updateTextColor();
+}
+
+void OptionsWidget::updateButtonFontColor(const QColor &color) {
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    for (QPushButton *button : buttons) {
+        QPalette buttonPalette = button->palette();
+        buttonPalette.setColor(QPalette::ButtonText, color);
+        button->setPalette(buttonPalette);
+    }
+}
+
+void OptionsWidget::updateTextColor()
+{
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+
+    for (QPushButton *button : buttons) {
+        QPalette buttonPalette = button->palette();
+        QColor buttonColor = buttonPalette.color(QPalette::Button);
+        QColor buttonTextColor;
+
+        if (buttonColor.lightness() > 128) {
+            buttonTextColor = Qt::black;
+        }
+        else {
+            buttonTextColor = Qt::white;
+        }
+
+        buttonPalette.setColor(QPalette::ButtonText, buttonTextColor);
+        button->setPalette(buttonPalette);
+    }
+}
+
+
 
 
