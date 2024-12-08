@@ -37,11 +37,11 @@ private slots:
     void changeBackgroundColor(const QColor &color);
     void changeButtonColor(const QColor &color);
     void fontColorChanged(const QColor &color);
-    void changeButtonSize(int size);
     void changeButtonFont(int size);
     void resetSettings();
     void restoreButtonSizes();
     void updateTextColor();
+    void changeButtonHeight(int height);
 
 private:
     Ui::MainWindow *ui;

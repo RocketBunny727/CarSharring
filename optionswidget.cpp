@@ -40,17 +40,6 @@ void OptionsWidget::on_fontColorButton_clicked()
     }
 }
 
-void OptionsWidget::on_fontSizeSpinBox_valueChanged(int value)
-{
-    emit playMenuSound();
-    emit fontSizeChanged(value);
-}
-
-void OptionsWidget::on_buttonSizeSlider_valueChanged(int value)
-{
-    emit buttonSizeChanged(value);
-}
-
 void OptionsWidget::on_resetButton_clicked()
 {
     emit playMenuSound();
@@ -103,6 +92,24 @@ void OptionsWidget::updateTextColor()
     }
 }
 
+void OptionsWidget::updateButtonHeight(int height) {
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+
+    for (QPushButton *button : buttons) {
+        button->setFixedHeight(height);
+    }
+}
+
+void OptionsWidget::on_fontSizeSlider_valueChanged(int value)
+{
+    value += 41;
+    emit buttonHeightChanged(value);
+}
 
 
+void OptionsWidget::on_spinBox_valueChanged(int arg1)
+{
+    emit playMenuSound();
+    emit fontSizeChanged(arg1);
+}
 

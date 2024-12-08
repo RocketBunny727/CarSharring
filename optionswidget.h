@@ -22,6 +22,8 @@ signals:
     void fontColorChanged(const QColor &color);
     void fontSizeChanged(int size);
     void buttonSizeChanged(int size);
+    void buttonHeightChanged(int height);
+    void buttonFontChanged(int size);
     void resetSettings();
     void closeOptions();
     void playMenuSound();
@@ -31,15 +33,16 @@ private slots:
     void on_backgroundColorButton_clicked();
     void on_buttonColorButton_clicked();
     void on_fontColorButton_clicked();
-    void on_fontSizeSpinBox_valueChanged(int value);
-    void on_buttonSizeSlider_valueChanged(int value);
     void on_resetButton_clicked();
     void on_closeButton_clicked();
     void updateTextColor();
+    void on_fontSizeSlider_valueChanged(int value);
+    void on_spinBox_valueChanged(int arg1);
 
 public slots:
     void updateButtonColor(const QColor &color);
     void updateButtonFontColor(const QColor &color);
+    void updateButtonHeight(int height);
 
 private:
     Ui::OptionsWidget *ui;

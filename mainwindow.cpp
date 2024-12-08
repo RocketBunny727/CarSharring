@@ -38,12 +38,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(optionsWidget, &OptionsWidget::backgroundColorChanged, this, &MainWindow::changeBackgroundColor);
     connect(optionsWidget, &OptionsWidget::buttonColorChanged, this, &MainWindow::changeButtonColor);
     connect(optionsWidget, &OptionsWidget::fontColorChanged, this, &MainWindow::fontColorChanged);
-    connect(optionsWidget, &OptionsWidget::fontSizeChanged, this, &MainWindow::changeButtonFont);
-    connect(optionsWidget, &OptionsWidget::buttonSizeChanged, this, &MainWindow::changeButtonSize);
     connect(optionsWidget, &OptionsWidget::resetSettings, this, &MainWindow::resetSettings);
     connect(optionsWidget, &OptionsWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(optionsWidget, &OptionsWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(optionsWidget, &OptionsWidget::playExitSound, this, &MainWindow::playExitSound);
+    connect(optionsWidget, &OptionsWidget::buttonFontChanged, this, &MainWindow::changeButtonFont);
+    connect(optionsWidget, &OptionsWidget::buttonHeightChanged, this, &MainWindow::changeButtonHeight);
+
 }
 
 MainWindow::~MainWindow()
@@ -201,23 +202,6 @@ void MainWindow::changeButtonColor(const QColor &color) {
     optionsWidget->updateButtonColor(color);
     updateTextColor();
 }
-void MainWindow::changeButtonSize(int size) {
-    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
-    for (QPushButton *button : buttons) {
-        button->setMinimumSize(size, button->height());
-    }
-}
-
-void MainWindow::changeButtonFont(int size) {
-    QFont font = QApplication::font();
-    font.setPointSize(size);
-    QApplication::setFont(font);
-
-    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
-    for (QPushButton *button : buttons) {
-        button->setFont(font);
-    }
-}
 
 void MainWindow::resetSettings() {
     QPalette palette = this->palette();
@@ -239,6 +223,7 @@ void MainWindow::resetSettings() {
 
     optionsWidget->updateButtonColor("#545454");
     optionsWidget->updateButtonFontColor(Qt::white);
+    changeButtonHeight(41);
 }
 
 void MainWindow::restoreButtonSizes() {
@@ -288,3 +273,24 @@ void MainWindow::fontColorChanged(const QColor &color)
     optionsWidget->updateButtonFontColor(color);
 }
 
+void MainWindow::changeButtonFont(int size)
+{
+    QFont font = QApplication::font();
+    font.setPointSize(size);
+    QApplication::setFont(font);
+
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+    for (QPushButton *button : buttons) {
+        button->setFont(font);
+    }
+}
+
+void MainWindow::changeButtonHeight(int height)
+{
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+    for (QPushButton *button : buttons) {
+        button->setFixedHeight(height);
+    }
+
+    optionsWidget->updateButtonHeight(height);
+}
