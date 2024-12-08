@@ -253,20 +253,17 @@ void MainWindow::restoreButtonSizes() {
 
 void MainWindow::updateTextColor()
 {
-    QPalette windowPalette = this->palette();
-    //QColor backgroundColor = windowPalette.color(QPalette::Window);
-    QColor buttonColor = windowPalette.color(QPalette::Button);
-
     QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
 
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
+        QColor buttonColor = buttonPalette.color(QPalette::Button);
         QColor buttonTextColor;
 
         if (buttonColor.lightness() > 128) {
             buttonTextColor = Qt::black;
         }
-        else if(buttonColor.lightness() <= 128) {
+        else {
             buttonTextColor = Qt::white;
         }
 
@@ -274,6 +271,7 @@ void MainWindow::updateTextColor()
         button->setPalette(buttonPalette);
     }
 }
+
 
 void MainWindow::fontColorChanged(const QColor &color)
 {
