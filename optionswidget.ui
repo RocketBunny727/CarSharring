@@ -387,10 +387,13 @@
        <property name="font">
         <font>
          <pointsize>12</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
-        <string>Change Background Color</string>
+        <string>Изменить цвет заднего фона</string>
        </property>
       </widget>
      </item>
@@ -421,10 +424,13 @@
        <property name="font">
         <font>
          <pointsize>12</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
-        <string>Change Button Color</string>
+        <string>Изменить цвет кнопок</string>
        </property>
       </widget>
      </item>
@@ -508,6 +514,7 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -559,7 +566,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonColorButton_2">
+        <widget class="QPushButton" name="fontColorButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -575,10 +582,13 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
+           <underline>false</underline>
           </font>
          </property>
          <property name="text">
-          <string>Change Font Color</string>
+          <string>Изменить цвет шрифта</string>
          </property>
         </widget>
        </item>
@@ -640,10 +650,13 @@
        <property name="font">
         <font>
          <pointsize>12</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
-        <string>Close options</string>
+        <string>Закрыть опции</string>
        </property>
       </widget>
      </item>
@@ -674,10 +687,13 @@
        <property name="font">
         <font>
          <pointsize>12</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
-        <string>Reset Settings</string>
+        <string>Восстановить по умолчанию</string>
        </property>
       </widget>
      </item>

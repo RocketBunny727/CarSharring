@@ -19,6 +19,7 @@ public:
 signals:
     void backgroundColorChanged(const QColor &color);
     void buttonColorChanged(const QColor &color);
+    void fontColorChanged(const QColor &color);
     void fontSizeChanged(int size);
     void buttonSizeChanged(int size);
     void resetSettings();
@@ -29,6 +30,7 @@ signals:
 private slots:
     void on_backgroundColorButton_clicked();
     void on_buttonColorButton_clicked();
+    void on_fontColorButton_clicked();
     void on_fontSizeSpinBox_valueChanged(int value);
     void on_buttonSizeSlider_valueChanged(int value);
     void on_resetButton_clicked();

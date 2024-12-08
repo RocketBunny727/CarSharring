@@ -31,6 +31,15 @@ void OptionsWidget::on_buttonColorButton_clicked()
     }
 }
 
+void OptionsWidget::on_fontColorButton_clicked()
+{
+    emit playMenuSound();
+    QColor color = QColorDialog::getColor();
+    if (color.isValid()) {
+        emit fontColorChanged(color);
+    }
+}
+
 void OptionsWidget::on_fontSizeSpinBox_valueChanged(int value)
 {
     emit playMenuSound();
@@ -39,7 +48,6 @@ void OptionsWidget::on_fontSizeSpinBox_valueChanged(int value)
 
 void OptionsWidget::on_buttonSizeSlider_valueChanged(int value)
 {
-    emit playMenuSound();
     emit buttonSizeChanged(value);
 }
 
@@ -54,3 +62,6 @@ void OptionsWidget::on_closeButton_clicked()
     emit playExitSound();
     emit closeOptions();
 }
+
+
+

@@ -16,19 +16,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
 
-    // Добавление виджетов в stackedWidget
     ui->workZoneWidget->addWidget(slideWidget);
     ui->workZoneWidget->addWidget(optionsWidget);
-    ui->workZoneWidget->setCurrentWidget(slideWidget);  // По умолчанию показываем slideWidget
+    ui->workZoneWidget->setCurrentWidget(slideWidget);
 
-    // Настройка звуков
     menuSoundEffect = new QSoundEffect(this);
     exitSoundEffect = new QSoundEffect(this);
     menuSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/SelectingMenuSound.wav"));
     exitSoundEffect->setSource(QUrl("qrc:/sounds/assets/sounds/ExitMenuSound.wav"));
     menuSoundEffect->setVolume(1.0);
 
-    // Настройка смены изображений
     opacityEffect = new QGraphicsOpacityEffect(this);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 
@@ -38,9 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     changeImage();
 
-    // Подключение сигналов для optionsWidget
     connect(optionsWidget, &OptionsWidget::backgroundColorChanged, this, &MainWindow::changeBackgroundColor);
     connect(optionsWidget, &OptionsWidget::buttonColorChanged, this, &MainWindow::changeButtonColor);
+    connect(optionsWidget, &OptionsWidget::fontColorChanged, this, &MainWindow::fontColorChanged);
     connect(optionsWidget, &OptionsWidget::fontSizeChanged, this, &MainWindow::changeButtonFont);
     connect(optionsWidget, &OptionsWidget::buttonSizeChanged, this, &MainWindow::changeButtonSize);
     connect(optionsWidget, &OptionsWidget::resetSettings, this, &MainWindow::resetSettings);
@@ -232,6 +229,7 @@ void MainWindow::resetSettings() {
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
         buttonPalette.setColor(QPalette::Button, QColor("#545454"));
+        buttonPalette.setColor(QPalette::ButtonText, QColor(Qt::white));
         button->setPalette(buttonPalette);
     }
 
@@ -256,20 +254,35 @@ void MainWindow::restoreButtonSizes() {
 void MainWindow::updateTextColor()
 {
     QPalette windowPalette = this->palette();
-    QColor backgroundColor = windowPalette.color(QPalette::Window);
+    //QColor backgroundColor = windowPalette.color(QPalette::Window);
     QColor buttonColor = windowPalette.color(QPalette::Button);
 
     QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
 
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
-        QColor textColor = Qt::black;
+        QColor buttonTextColor;
 
-        if (backgroundColor.lightness() < 128 || buttonColor.lightness() < 128) {
-            textColor = Qt::white;
+        if (buttonColor.lightness() > 128) {
+            buttonTextColor = Qt::black;
+        }
+        else if(buttonColor.lightness() <= 128) {
+            buttonTextColor = Qt::white;
         }
 
-        buttonPalette.setColor(QPalette::ButtonText, textColor);
+        buttonPalette.setColor(QPalette::ButtonText, buttonTextColor);
         button->setPalette(buttonPalette);
     }
 }
+
+void MainWindow::fontColorChanged(const QColor &color)
+{
+    QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+
+    for (QPushButton *button : buttons) {
+        QPalette buttonPalette = button->palette();
+        buttonPalette.setColor(QPalette::ButtonText, color);
+        button->setPalette(buttonPalette);
+    }
+}
+
