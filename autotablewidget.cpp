@@ -2,7 +2,7 @@
 #include "ui_autotablewidget.h"
 
 autoTableWidget::autoTableWidget(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
     , ui(new Ui::autoTableWidget)
 {
     ui->setupUi(this);
