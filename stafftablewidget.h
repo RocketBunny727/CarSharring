@@ -1,13 +1,13 @@
 #ifndef STAFFTABLEWIDGET_H
 #define STAFFTABLEWIDGET_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
 class staffTableWidget;
 }
 
-class staffTableWidget : public QMainWindow
+class staffTableWidget : public QWidget
 {
     Q_OBJECT
 

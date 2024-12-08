@@ -1,13 +1,13 @@
 #ifndef AUTOTABLEWIDGET_H
 #define AUTOTABLEWIDGET_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
 class autoTableWidget;
 }
 
-class autoTableWidget : public QMainWindow
+class autoTableWidget : public QWidget
 {
     Q_OBJECT
 

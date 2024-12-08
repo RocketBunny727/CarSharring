@@ -2,7 +2,7 @@
 #include "ui_stafftablewidget.h"
 
 staffTableWidget::staffTableWidget(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
     , ui(new Ui::staffTableWidget)
 {
     ui->setupUi(this);

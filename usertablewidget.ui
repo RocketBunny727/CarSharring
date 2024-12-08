@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>autoTableWidget</class>
- <widget class="QWidget" name="autoTableWidget">
+ <class>userTableWidget</class>
+ <widget class="QWidget" name="userTableWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
