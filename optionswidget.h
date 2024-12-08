@@ -43,6 +43,7 @@ public slots:
     void updateButtonColor(const QColor &color);
     void updateButtonFontColor(const QColor &color);
     void updateButtonHeight(int height);
+    void updateLabel(const QColor &color);
 
 private:
     Ui::OptionsWidget *ui;

@@ -188,6 +188,13 @@ void MainWindow::changeBackgroundColor(const QColor &color) {
     QPalette palette = this->palette();
     palette.setColor(QPalette::Window, color);
     this->setPalette(palette);
+
+    if (color.lightness() > 128) {
+        optionsWidget->updateLabel(Qt::black);
+    }
+    else {
+        optionsWidget->updateLabel(Qt::white);
+    }
 }
 
 void MainWindow::changeButtonColor(const QColor &color) {

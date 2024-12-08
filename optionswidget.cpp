@@ -113,3 +113,9 @@ void OptionsWidget::on_spinBox_valueChanged(int arg1)
     emit fontSizeChanged(arg1);
 }
 
+void OptionsWidget::updateLabel(const QColor &color) {
+    QPalette textPalette = ui->label->palette();
+    textPalette.setColor(QPalette::WindowText, color);
+    ui->label->setPalette(textPalette);
+}
+
