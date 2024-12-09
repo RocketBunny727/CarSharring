@@ -5,8 +5,16 @@
 #include <QGraphicsOpacityEffect>
 #include <QTimer>
 #include <QSoundEffect>
+#include <QMessageBox>
+#include <QPropertyAnimation>
+#include <QLabel>
+#include <QPushButton>
+#include <QApplication>
+#include <QFont>
 #include "optionswidget.h"
 #include "slide.h"
+#include "autotablewidget.h"
+#include "autotableinsertwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +50,7 @@ private slots:
     void restoreButtonSizes();
     void updateTextColor();
     void changeButtonHeight(int height);
+    void showAutoTableWidget();
 
 private:
     Ui::MainWindow *ui;
@@ -51,6 +60,8 @@ private:
     QSoundEffect *exitSoundEffect;
     OptionsWidget *optionsWidget;
     Slide *slideWidget;
+    AutoTableWidget *autoTableWidget;
+    AutoTableInsertWindow *autoTableInsertWindow;
 };
 
 #endif // MAINWINDOW_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1352</width>
-    <height>600</height>
+    <width>1915</width>
+    <height>1073</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1363,7 +1363,7 @@
          <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Policy::Fixed</enum>
+         <enum>QSizePolicy::Policy::Expanding</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -1386,7 +1386,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>530</width>
+          <width>1123</width>
           <height>530</height>
          </size>
         </property>
@@ -1425,7 +1425,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1352</width>
+     <width>1915</width>
      <height>21</height>
     </rect>
    </property>

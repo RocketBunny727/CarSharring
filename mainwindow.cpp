@@ -1,23 +1,20 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QMessageBox>
-#include <QPropertyAnimation>
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , optionsWidget(new OptionsWidget(this))
     , slideWidget(new Slide(this))
+    , autoTableWidget(new AutoTableWidget(this))
+    , autoTableInsertWindow(new AutoTableInsertWindow(this))
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
 
     ui->workZoneWidget->addWidget(slideWidget);
     ui->workZoneWidget->addWidget(optionsWidget);
+    ui->workZoneWidget->addWidget(autoTableWidget);
     ui->workZoneWidget->setCurrentWidget(slideWidget);
 
     menuSoundEffect = new QSoundEffect(this);
@@ -44,6 +41,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(optionsWidget, &OptionsWidget::playExitSound, this, &MainWindow::playExitSound);
     connect(optionsWidget, &OptionsWidget::buttonFontChanged, this, &MainWindow::changeButtonFont);
     connect(optionsWidget, &OptionsWidget::buttonHeightChanged, this, &MainWindow::changeButtonHeight);
+    connect(autoTableWidget, &AutoTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
+    connect(autoTableWidget, &AutoTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(autoTableWidget, &AutoTableWidget::playExitSound, this, &MainWindow::playExitSound);
+    connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
 
 }
 
@@ -100,6 +102,7 @@ void MainWindow::playExitSound()
 void MainWindow::on_auto_list_button_clicked()
 {
     stopSlideShowAndResizeButtons();
+    showAutoTableWidget();
     playMenuSound();
 }
 
@@ -207,6 +210,8 @@ void MainWindow::changeButtonColor(const QColor &color) {
 
 
     optionsWidget->updateButtonColor(color);
+    autoTableWidget->updateButtonColor(color);
+    autoTableInsertWindow->updateButtonColor(color); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
     updateTextColor();
 }
 
@@ -228,8 +233,13 @@ void MainWindow::resetSettings() {
     font.setPointSize(12);
     this->setFont(font);
 
-    optionsWidget->updateButtonColor("#545454");
     optionsWidget->updateButtonFontColor(Qt::white);
+    autoTableWidget->updateButtonFontColor(Qt::white);
+    autoTableInsertWindow->updateButtonFontColor(Qt::white); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
+    optionsWidget->updateLabel(Qt::white);
+    optionsWidget->updateButtonColor("#545454");
+    autoTableWidget->updateButtonColor("#545454");
+    autoTableInsertWindow->updateButtonColor("#545454");
     changeButtonHeight(41);
 }
 
@@ -278,6 +288,8 @@ void MainWindow::fontColorChanged(const QColor &color)
         button->setPalette(buttonPalette);
     }
     optionsWidget->updateButtonFontColor(color);
+    autoTableWidget->updateButtonFontColor(color); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
+    autoTableInsertWindow->updateButtonFontColor(color);
 }
 
 void MainWindow::changeButtonFont(int size)
@@ -300,4 +312,19 @@ void MainWindow::changeButtonHeight(int height)
     }
 
     optionsWidget->updateButtonHeight(height);
+    autoTableWidget->updateButtonHeight(height); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
+    autoTableInsertWindow->updateButtonHeight(height);
 }
+
+void MainWindow::showAutoTableWidget()
+{
+    ui->workZoneWidget->setCurrentWidget(autoTableWidget); // используем объект, который уже был создан в конструкторе
+    slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
+    timer->start(5000);
+
+    changeImage();
+}
+

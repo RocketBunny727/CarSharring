@@ -1,5 +1,6 @@
 QT       += core gui
 QT       += multimedia
+QT += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,32 +11,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    autotableinsertwindow.cpp \
     autotablewidget.cpp \
     main.cpp \
     mainwindow.cpp \
     optionswidget.cpp \
-    partnertablewidget.cpp \
-    slide.cpp \
-    stafftablewidget.cpp \
-    usertablewidget.cpp
+    slide.cpp
 
 HEADERS += \
+    autotableinsertwindow.h \
     autotablewidget.h \
     mainwindow.h \
     optionswidget.h \
-    partnertablewidget.h \
-    slide.h \
-    stafftablewidget.h \
-    usertablewidget.h
+    slide.h
 
 FORMS += \
+    autotableinsertwindow.ui \
     autotablewidget.ui \
     mainwindow.ui \
     optionswidget.ui \
-    partnertablewidget.ui \
-    slide.ui \
-    stafftablewidget.ui \
-    usertablewidget.ui
+    slide.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
