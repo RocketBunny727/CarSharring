@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlDatabase>
+#include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -19,10 +20,14 @@ class AutoTableInsertWindow : public QMainWindow
 public:
     explicit AutoTableInsertWindow(QWidget *parent = nullptr);
     ~AutoTableInsertWindow();
+    void setDataForEditing(const QString &id, const QString &name, const QString &year, const QString &mileage,
+                           const QString &transmission, const QString &wheelSide, const QString &status,
+                           const QString &costPerHour, const QString &costPerDay);
 
 signals:
     void playMenuSound();
     void playExitSound();
+    void dataInserted();
 
 private slots:
     void on_closeButton_clicked();
@@ -39,6 +44,8 @@ private:
     Ui::AutoTableInsertWindow *ui;
     QSqlDatabase db;
     void setupDatabase();
+    void insertData();
+    QString idForUpdate;
 };
 
 #endif // AUTOTABLEINSERTWINDOW_H

@@ -176,17 +176,16 @@ void MainWindow::showOptionsWidget()
 {
     ui->workZoneWidget->setCurrentWidget(optionsWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
-
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
-    timer->start(5000);
-
-    changeImage();
 }
 
 void MainWindow::showSliderWidget()
 {
     ui->workZoneWidget->setCurrentWidget(slideWidget);
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
+    timer->start(5000);
+
+    changeImage();
 }
 
 void MainWindow::onOptionsClose() {
@@ -333,21 +332,10 @@ void MainWindow::showAutoTableWidget()
     ui->workZoneWidget->setCurrentWidget(autoTableWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
-    timer->start(5000);
-
-    changeImage();
 }
 
 
 void MainWindow::showUserTableWidget() {
     ui->workZoneWidget->setCurrentWidget(userTableWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
-
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
-    timer->start(5000);
-
-    changeImage();
 }

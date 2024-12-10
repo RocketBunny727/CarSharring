@@ -24,8 +24,7 @@ void AutoTableInsertWindow::setupDatabase()
 
     if (!db.open()) {
         qDebug() << "Ошибка подключения к базе данных: " << db.lastError().text();
-    }
-    else {
+    } else {
         qDebug() << "Подключение успешно!!! (AutoTableInsertWindow)";
     }
 }
@@ -67,8 +66,7 @@ void AutoTableInsertWindow::updateTextColor()
 
         if (buttonColor.lightness() > 128) {
             buttonTextColor = Qt::black;
-        }
-        else {
+        } else {
             buttonTextColor = Qt::white;
         }
 
@@ -87,9 +85,74 @@ void AutoTableInsertWindow::on_closeButton_clicked()
     emit playExitSound();
 }
 
-
 void AutoTableInsertWindow::on_insertButton_clicked()
 {
+    insertData();
     emit playMenuSound();
 }
 
+void AutoTableInsertWindow::insertData()
+{
+    QString name = ui->nameLineEdit->text();
+    QString year = ui->yearLineEdit->text();
+    QString mileage = ui->mileageLineEdit->text();
+    QString status = ui->statusLineEdit->text();
+    QString transmission = ui->transmissionLineEdit->text();
+    QString wheelSide = ui->wheelLineEdit->text();
+    QString costPerHour = ui->costPerHourLineEdit->text();
+    QString costPerDay = ui->costPerDayLineEdit->text();
+
+    if (name.isEmpty() || year.isEmpty() || mileage.isEmpty() || status.isEmpty() || transmission.isEmpty() || wheelSide.isEmpty() || costPerHour.isEmpty() || costPerDay.isEmpty()) {
+        QMessageBox::critical(this, "Ошибка", "Все поля должны быть заполнены!");
+        return;
+    }
+
+    QSqlQuery query;
+
+    if (!idForUpdate.isEmpty()) {
+        query.prepare("UPDATE autoTable SET name = :name, year = :year, mileage = :mileage, transmission = :transmission, "
+                      "wheel_side = :wheel_side, status = :status, cost_per_hour = :cost_per_hour, cost_per_day = :cost_per_day "
+                      "WHERE id = :id");
+        query.bindValue(":id", idForUpdate);
+    } else {
+        query.prepare("INSERT INTO autoTable (name, year, mileage, transmission, wheel_side, status, cost_per_hour, cost_per_day) "
+                      "VALUES (:name, :year, :mileage, :transmission, :wheel_side, :status, :cost_per_hour, :cost_per_day)");
+    }
+
+    query.bindValue(":name", name);
+    query.bindValue(":year", year);
+    query.bindValue(":mileage", mileage);
+    query.bindValue(":transmission", transmission);
+    query.bindValue(":wheel_side", wheelSide);
+    query.bindValue(":status", status);
+    query.bindValue(":cost_per_hour", costPerHour);
+    query.bindValue(":cost_per_day", costPerDay);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка выполнения запроса: " << query.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Ошибка выполнения запроса: " + query.lastError().text());
+    } else {
+        qDebug() << "Данные успешно добавлены или обновлены!";
+        QMessageBox::information(this, "Успех", "Авто успешно добавлено/обновлено!");
+        emit dataInserted(); // Отправляем сигнал об успешной вставке/обновлении данных
+        this->close(); // Закрываем окно после успешной вставки
+    }
+}
+
+void AutoTableInsertWindow::setDataForEditing(const QString &id, const QString &name, const QString &year,
+                                              const QString &mileage, const QString &transmission, const QString &wheelSide,
+                                              const QString &status, const QString &costPerHour, const QString &costPerDay)
+{
+    // Заполняем поля формы текущими данными
+    ui->nameLineEdit->setText(name);
+    ui->yearLineEdit->setText(year);
+    ui->mileageLineEdit->setText(mileage);
+    ui->statusLineEdit->setText(status);
+    ui->transmissionLineEdit->setText(transmission);
+    ui->wheelLineEdit->setText(wheelSide);
+    ui->costPerHourLineEdit->setText(costPerHour);
+    ui->costPerDayLineEdit->setText(costPerDay);
+
+    // Сохраняем ID для последующего обновления записи
+    this->idForUpdate = id;
+}
