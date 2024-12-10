@@ -28,7 +28,7 @@ void AutoTableWidget::setupDatabase()
         qDebug() << "Ошибка подключения к базе данных: " << db.lastError().text();
     }
     else {
-        qDebug() << "Подключение успешно!!!";
+        qDebug() << "Подключение успешно!!! (AutoTableWidget)";
     }
 }
 

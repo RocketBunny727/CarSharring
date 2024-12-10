@@ -22,7 +22,7 @@ signals:
 private slots:
     void on_closeButton_clicked();
     void updateTextColor();
-
+    void setupDatabase();
     void on_insertButton_clicked();
 
 public slots:

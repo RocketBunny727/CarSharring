@@ -13,6 +13,48 @@ AutoTableInsertWindow::~AutoTableInsertWindow()
     delete ui;
 }
 
+void AutoTableInsertWindow::setupDatabase()
+{
+    db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName("127.0.0.1");
+    db.setDatabaseName("postgres");
+    db.setUserName("postgres");
+    db.setPassword("471979");
+
+    if (!db.open()) {
+        qDebug() << "Ошибка подключения к базе данных: " << db.lastError().text();
+    }
+    else {
+        qDebug() << "Подключение успешно!!! (AutoTableInsertWindow)";
+    }
+}
+
+void AutoTableWidget::loadTableData()
+{
+    QSqlQuery query("SELECT *FROM public.autoTable");
+    if (!query.exec()) {
+        qDebug() << "Ошибка выполнения запроса: " << query.lastError().text();
+        qDebug() << "Запрос: " << query.executedQuery();
+        return;
+    }
+
+    ui->autoTableWidget_2->clearContents();
+    ui->autoTableWidget_2->setRowCount(0);
+
+    int colCount = query.record().count();
+    ui->autoTableWidget_2->setColumnCount(colCount);
+
+    int row = 0;
+    while (query.next()) {
+        ui->autoTableWidget_2->insertRow(row);
+        for (int col = 0; col < colCount; ++col) {
+            QTableWidgetItem *item = new QTableWidgetItem(query.value(col).toString());
+            ui->autoTableWidget_2->setItem(row, col, item);
+        }
+        row++;
+    }
+}
+
 void AutoTableInsertWindow::updateButtonColor(const QColor &color) {
     QList<QPushButton *> buttons = {ui->closeButton, ui->insertButton};
     for (QPushButton *button : buttons) {

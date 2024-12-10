@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AutoTableWidget</class>
+ <class>autoTableWidget</class>
  <widget class="QWidget" name="autoTableWidget">
   <property name="geometry">
    <rect>
@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1122</width>
+     <width>1236</width>
      <height>691</height>
     </rect>
    </property>
@@ -33,7 +33,7 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>720</width>
+        <width>900</width>
         <height>17</height>
        </size>
       </property>
@@ -90,6 +90,11 @@
       </property>
       <column>
        <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Имя, марка</string>
        </property>
       </column>
@@ -101,6 +106,16 @@
       <column>
        <property name="text">
         <string>Пробег</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>КПП</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Руль</string>
        </property>
       </column>
       <column>
@@ -121,7 +136,7 @@
      </widget>
     </item>
     <item>
-     <spacer name="horizontalSpacer">
+     <spacer name="horizontalSpacer_2">
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
@@ -130,7 +145,7 @@
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>20</width>
         <height>20</height>
        </size>
       </property>
@@ -138,6 +153,9 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetMinAndMaxSize</enum>
+      </property>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
@@ -156,10 +174,22 @@
       </item>
       <item>
        <widget class="QPushButton" name="insertButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>300</width>
+          <width>150</width>
           <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="palette">
@@ -264,10 +294,22 @@
       </item>
       <item>
        <widget class="QPushButton" name="deleteButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>300</width>
+          <width>150</width>
           <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="palette">
@@ -372,10 +414,22 @@
       </item>
       <item>
        <widget class="QPushButton" name="closeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>300</width>
+          <width>150</width>
           <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="palette">
@@ -481,16 +535,13 @@
      </layout>
     </item>
     <item>
-     <spacer name="horizontalSpacer_2">
+     <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Policy::Fixed</enum>
-      </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>10</width>
         <height>20</height>
        </size>
       </property>
