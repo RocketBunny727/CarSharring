@@ -5,7 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QSqlRecord>
+#include <QSqlQueryModel>
 #include <QTableWidgetItem>
 
 namespace Ui {
@@ -29,8 +29,10 @@ private slots:
     void on_insertButton_clicked();
     void on_closeButton_clicked();
     void on_deleteButton_clicked();
+    void on_editButton_clicked();
     void loadTableData();
     void updateTextColor();
+    void onDataInserted();
 
 public slots:
     void updateButtonColor(const QColor &color);

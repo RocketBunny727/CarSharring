@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     optionswidget.cpp \
     slide.cpp \
+    usertableinsertwindow.cpp \
     usertablewidget.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     mainwindow.h \
     optionswidget.h \
     slide.h \
+    usertableinsertwindow.h \
     usertablewidget.h
 
 FORMS += \
@@ -33,6 +35,7 @@ FORMS += \
     mainwindow.ui \
     optionswidget.ui \
     slide.ui \
+    usertableinsertwindow.ui \
     usertablewidget.ui
 
 # Default rules for deployment.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>AutoTableWidget</class>
- <widget class="QWidget" name="autoTableWidget">
+ <widget class="QWidget" name="AutoTableWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -87,6 +87,9 @@
         </inactive>
         <disabled/>
        </palette>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
       </property>
       <column>
        <property name="text">
