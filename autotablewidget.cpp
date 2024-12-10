@@ -53,10 +53,6 @@ void AutoTableWidget::loadTableData()
     ui->autoTableWidget_2->setRowCount(rowCount);
     ui->autoTableWidget_2->setColumnCount(columnCount);
 
-    // Устанавливаем заголовки столбцов
-    // ui->autoTableWidget_2->setHorizontalHeaderLabels({"ID", "Название", "Год", "Пробег", "Трансмиссия", "Сторона руля", "Статус", "Цена за час", "Цена за день"});
-
-    // Заполняем таблицу данными
     for (int row = 0; row < rowCount; ++row) {
         for (int col = 0; col < columnCount; ++col) {
             QString data = model->data(model->index(row, col)).toString();
@@ -67,8 +63,8 @@ void AutoTableWidget::loadTableData()
     }
 
     // Устанавливаем ширину первого столбца
-    ui->autoTableWidget_2->setColumnWidth(0, 50);  // Устанавливаем ширину первого столбца на 50 пикселей
-    ui->autoTableWidget_2->horizontalHeader()->resizeSection(0, 50); // Ограничиваем ширину заголовка первого столбца
+    ui->autoTableWidget_2->setColumnWidth(0, 50);
+    ui->autoTableWidget_2->horizontalHeader()->resizeSection(0, 50);
 
     // Устанавливаем ширину для остальных столбцов в зависимости от содержимого
     for (int col = 1; col < columnCount; ++col) {
@@ -88,16 +84,6 @@ void AutoTableWidget::loadTableData()
         ui->autoTableWidget_2->setColumnWidth(col, qMax(maxLength * 10, 100));  // Умножаем на коэффициент для корректной ширины
     }
 }
-
-
-/* for (int row = 0; row < rowCount; ++row) {
-        for (int col = 0; col < columnCount; ++col) {
-            QString data = model->data(model->index(row, col)).toString();
-            QTableWidgetItem *item = new QTableWidgetItem(data);
-            item->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget->setItem(row, col, item);
-        }
-    } */
 
 void AutoTableWidget::updateButtonColor(const QColor &color) {
     QList<QPushButton *> buttons = {ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};

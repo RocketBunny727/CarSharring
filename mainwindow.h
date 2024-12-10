@@ -16,6 +16,7 @@
 #include "autotablewidget.h"
 #include "autotableinsertwindow.h"
 #include "usertablewidget.h"
+#include "partnertablewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -53,6 +54,7 @@ private slots:
     void changeButtonHeight(int height);
     void showAutoTableWidget();
     void showUserTableWidget();
+    void showPartnerTableWidget();
 
 private:
     Ui::MainWindow *ui;
@@ -65,6 +67,7 @@ private:
     AutoTableWidget *autoTableWidget;
     AutoTableInsertWindow *autoTableInsertWindow;
     UserTableWidget *userTableWidget;
+    PartnerTableWidget *partnerTableWidget;
 };
 
 #endif // MAINWINDOW_H

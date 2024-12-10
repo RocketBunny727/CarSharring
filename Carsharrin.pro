@@ -16,6 +16,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     optionswidget.cpp \
+    partnertableinsertwindow.cpp \
+    partnertablewidget.cpp \
     slide.cpp \
     usertableinsertwindow.cpp \
     usertablewidget.cpp
@@ -25,6 +27,8 @@ HEADERS += \
     autotablewidget.h \
     mainwindow.h \
     optionswidget.h \
+    partnertableinsertwindow.h \
+    partnertablewidget.h \
     slide.h \
     usertableinsertwindow.h \
     usertablewidget.h
@@ -34,6 +38,8 @@ FORMS += \
     autotablewidget.ui \
     mainwindow.ui \
     optionswidget.ui \
+    partnertableinsertwindow.ui \
+    partnertablewidget.ui \
     slide.ui \
     usertableinsertwindow.ui \
     usertablewidget.ui
