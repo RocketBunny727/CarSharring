@@ -2,6 +2,11 @@
 #define AUTOTABLEINSERTWINDOW_H
 
 #include <QMainWindow>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QSqlRecord>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class AutoTableInsertWindow;
@@ -22,7 +27,6 @@ signals:
 private slots:
     void on_closeButton_clicked();
     void updateTextColor();
-    void setupDatabase();
     void on_insertButton_clicked();
 
 public slots:
@@ -33,6 +37,8 @@ public slots:
 
 private:
     Ui::AutoTableInsertWindow *ui;
+    QSqlDatabase db;
+    void setupDatabase();
 };
 
 #endif // AUTOTABLEINSERTWINDOW_H

@@ -15,6 +15,7 @@
 #include "slide.h"
 #include "autotablewidget.h"
 #include "autotableinsertwindow.h"
+#include "usertablewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -51,6 +52,7 @@ private slots:
     void updateTextColor();
     void changeButtonHeight(int height);
     void showAutoTableWidget();
+    void showUserTableWidget();
 
 private:
     Ui::MainWindow *ui;
@@ -62,6 +64,7 @@ private:
     Slide *slideWidget;
     AutoTableWidget *autoTableWidget;
     AutoTableInsertWindow *autoTableInsertWindow;
+    UserTableWidget *userTableWidget;
 };
 
 #endif // MAINWINDOW_H

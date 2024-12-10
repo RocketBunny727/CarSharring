@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , slideWidget(new Slide(this))
     , autoTableWidget(new AutoTableWidget(this))
     , autoTableInsertWindow(new AutoTableInsertWindow(this))
+    , userTableWidget(new UserTableWidget(this))
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->workZoneWidget->addWidget(slideWidget);
     ui->workZoneWidget->addWidget(optionsWidget);
     ui->workZoneWidget->addWidget(autoTableWidget);
+    ui->workZoneWidget->addWidget(userTableWidget);
     ui->workZoneWidget->setCurrentWidget(slideWidget);
 
     menuSoundEffect = new QSoundEffect(this);
@@ -109,6 +111,7 @@ void MainWindow::on_auto_list_button_clicked()
 void MainWindow::on_user_list_button_clicked()
 {
     stopSlideShowAndResizeButtons();
+    showUserTableWidget();
     playMenuSound();
 }
 
@@ -127,6 +130,7 @@ void MainWindow::on_staff_list_button_clicked()
 void MainWindow::on_setting_button_clicked()
 {
     // stopSlideShowAndResizeButtons();
+    restoreButtonSizes();
     showOptionsWidget();
     playMenuSound();
 }
@@ -318,7 +322,7 @@ void MainWindow::changeButtonHeight(int height)
 
 void MainWindow::showAutoTableWidget()
 {
-    ui->workZoneWidget->setCurrentWidget(autoTableWidget); // используем объект, который уже был создан в конструкторе
+    ui->workZoneWidget->setCurrentWidget(autoTableWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 
     timer = new QTimer(this);
@@ -328,3 +332,14 @@ void MainWindow::showAutoTableWidget()
     changeImage();
 }
 
+
+void MainWindow::showUserTableWidget() {
+    ui->workZoneWidget->setCurrentWidget(userTableWidget);
+    slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
+    timer->start(5000);
+
+    changeImage();
+}

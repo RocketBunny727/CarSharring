@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AutoTableWidget</class>
+ <class>UserTableWidget</class>
  <widget class="QWidget" name="autoTableWidget">
   <property name="geometry">
    <rect>
@@ -95,42 +95,27 @@
       </column>
       <column>
        <property name="text">
-        <string>Имя, марка</string>
+        <string>Имя</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Год выпуска</string>
+        <string>Дата рождения</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Пробег</string>
+        <string>Статус</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>КПП</string>
+        <string>Номер телефона</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Руль</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Состояние</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Цена за час</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Цена за день</string>
+        <string>Адрес email</string>
        </property>
       </column>
      </widget>

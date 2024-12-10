@@ -16,21 +16,24 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     optionswidget.cpp \
-    slide.cpp
+    slide.cpp \
+    usertablewidget.cpp
 
 HEADERS += \
     autotableinsertwindow.h \
     autotablewidget.h \
     mainwindow.h \
     optionswidget.h \
-    slide.h
+    slide.h \
+    usertablewidget.h
 
 FORMS += \
     autotableinsertwindow.ui \
     autotablewidget.ui \
     mainwindow.ui \
     optionswidget.ui \
-    slide.ui
+    slide.ui \
+    usertablewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

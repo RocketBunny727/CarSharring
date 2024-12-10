@@ -6,6 +6,7 @@ AutoTableInsertWindow::AutoTableInsertWindow(QWidget *parent)
     , ui(new Ui::AutoTableInsertWindow)
 {
     ui->setupUi(this);
+    setupDatabase();
 }
 
 AutoTableInsertWindow::~AutoTableInsertWindow()
@@ -26,32 +27,6 @@ void AutoTableInsertWindow::setupDatabase()
     }
     else {
         qDebug() << "Подключение успешно!!! (AutoTableInsertWindow)";
-    }
-}
-
-void AutoTableWidget::loadTableData()
-{
-    QSqlQuery query("SELECT *FROM public.autoTable");
-    if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса: " << query.lastError().text();
-        qDebug() << "Запрос: " << query.executedQuery();
-        return;
-    }
-
-    ui->autoTableWidget_2->clearContents();
-    ui->autoTableWidget_2->setRowCount(0);
-
-    int colCount = query.record().count();
-    ui->autoTableWidget_2->setColumnCount(colCount);
-
-    int row = 0;
-    while (query.next()) {
-        ui->autoTableWidget_2->insertRow(row);
-        for (int col = 0; col < colCount; ++col) {
-            QTableWidgetItem *item = new QTableWidgetItem(query.value(col).toString());
-            ui->autoTableWidget_2->setItem(row, col, item);
-        }
-        row++;
     }
 }
 
