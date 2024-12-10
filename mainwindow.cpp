@@ -46,6 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(autoTableWidget, &AutoTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(autoTableWidget, &AutoTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableWidget, &AutoTableWidget::playExitSound, this, &MainWindow::playExitSound);
+    connect(userTableWidget, &UserTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
+    connect(userTableWidget, &UserTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(userTableWidget, &UserTableWidget::playExitSound, this, &MainWindow::playExitSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
 
@@ -216,6 +219,7 @@ void MainWindow::changeButtonColor(const QColor &color) {
     optionsWidget->updateButtonColor(color);
     autoTableWidget->updateButtonColor(color);
     autoTableInsertWindow->updateButtonColor(color); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
+    userTableWidget->updateButtonColor(color);
     updateTextColor();
 }
 
@@ -240,10 +244,12 @@ void MainWindow::resetSettings() {
     optionsWidget->updateButtonFontColor(Qt::white);
     autoTableWidget->updateButtonFontColor(Qt::white);
     autoTableInsertWindow->updateButtonFontColor(Qt::white); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
+    userTableWidget->updateButtonFontColor(Qt::white);
     optionsWidget->updateLabel(Qt::white);
     optionsWidget->updateButtonColor("#545454");
     autoTableWidget->updateButtonColor("#545454");
     autoTableInsertWindow->updateButtonColor("#545454");
+    userTableWidget->updateButtonColor("#545454");
     changeButtonHeight(41);
 }
 
@@ -294,6 +300,7 @@ void MainWindow::fontColorChanged(const QColor &color)
     optionsWidget->updateButtonFontColor(color);
     autoTableWidget->updateButtonFontColor(color); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
     autoTableInsertWindow->updateButtonFontColor(color);
+    userTableWidget->updateButtonFontColor(color);
 }
 
 void MainWindow::changeButtonFont(int size)
@@ -318,6 +325,7 @@ void MainWindow::changeButtonHeight(int height)
     optionsWidget->updateButtonHeight(height);
     autoTableWidget->updateButtonHeight(height); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
     autoTableInsertWindow->updateButtonHeight(height);
+    userTableWidget->updateButtonHeight(height);
 }
 
 void MainWindow::showAutoTableWidget()
