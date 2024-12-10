@@ -126,7 +126,7 @@ void MainWindow::on_staff_list_button_clicked()
 
 void MainWindow::on_setting_button_clicked()
 {
-    stopSlideShowAndResizeButtons();
+    // stopSlideShowAndResizeButtons();
     showOptionsWidget();
     playMenuSound();
 }

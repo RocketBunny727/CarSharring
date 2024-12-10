@@ -34,7 +34,7 @@ void AutoTableWidget::setupDatabase()
 
 void AutoTableWidget::loadTableData()
 {
-    QSqlQuery query("SELECT * FROM public.autoTable;");
+    QSqlQuery query("SELECT *FROM public.autoTable");
     if (!query.exec()) {
         qDebug() << "Ошибка выполнения запроса: " << query.lastError().text();
         qDebug() << "Запрос: " << query.executedQuery();

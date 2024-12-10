@@ -70,3 +70,9 @@ void AutoTableInsertWindow::on_closeButton_clicked()
     emit playExitSound();
 }
 
+
+void AutoTableInsertWindow::on_insertButton_clicked()
+{
+    emit playMenuSound();
+}
+

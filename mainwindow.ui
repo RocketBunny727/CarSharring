@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1915</width>
-    <height>1073</height>
+    <height>980</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -52,7 +58,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>30</height>
+            <height>38</height>
            </size>
           </property>
          </spacer>
