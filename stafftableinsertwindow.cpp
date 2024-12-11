@@ -1,20 +1,20 @@
-#include "UserTableInsertWindow.h"
-#include "ui_UserTableInsertWindow.h"
+#include "stafftableinsertwindow.h"
+#include "ui_stafftableinsertwindow.h"
 
-UserTableInsertWindow::UserTableInsertWindow(QWidget *parent)
+StaffTableInsertWindow::StaffTableInsertWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::UserTableInsertWindow)
+    , ui(new Ui::StaffTableInsertWindow)
 {
     ui->setupUi(this);
     setupDatabase();
 }
 
-UserTableInsertWindow::~UserTableInsertWindow()
+StaffTableInsertWindow::~StaffTableInsertWindow()
 {
     delete ui;
 }
 
-void UserTableInsertWindow::setupDatabase()
+void StaffTableInsertWindow::setupDatabase()
 {
     db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("127.0.0.1");
@@ -29,7 +29,7 @@ void UserTableInsertWindow::setupDatabase()
     }
 }
 
-void UserTableInsertWindow::updateButtonColor(const QColor &color) {
+void StaffTableInsertWindow::updateButtonColor(const QColor &color) {
     QList<QPushButton *> buttons = {ui->closeButton, ui->insertButton};
     for (QPushButton *button : buttons) {
         QPalette palette = button->palette();
@@ -39,7 +39,7 @@ void UserTableInsertWindow::updateButtonColor(const QColor &color) {
     updateTextColor();
 }
 
-void UserTableInsertWindow::updateButtonFontColor(const QColor &color) {
+void StaffTableInsertWindow::updateButtonFontColor(const QColor &color) {
     QList<QPushButton *> buttons = {ui->closeButton, ui->insertButton};
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
@@ -48,7 +48,7 @@ void UserTableInsertWindow::updateButtonFontColor(const QColor &color) {
     }
 }
 
-void UserTableInsertWindow::updateButtonHeight(int height) {
+void StaffTableInsertWindow::updateButtonHeight(int height) {
     QList<QPushButton *> buttons = {ui->closeButton, ui->insertButton};
 
     for (QPushButton *button : buttons) {
@@ -56,7 +56,7 @@ void UserTableInsertWindow::updateButtonHeight(int height) {
     }
 }
 
-void UserTableInsertWindow::updateTextColor()
+void StaffTableInsertWindow::updateTextColor()
 {
     QList<QPushButton *> buttons = {ui->closeButton, ui->insertButton};
     for (QPushButton *button : buttons) {
@@ -75,31 +75,31 @@ void UserTableInsertWindow::updateTextColor()
     }
 }
 
-void UserTableInsertWindow::updateLabel(const QColor &color) {
+void StaffTableInsertWindow::updateLabel(const QColor &color) {
 
 }
 
-void UserTableInsertWindow::on_closeButton_clicked()
+void StaffTableInsertWindow::on_closeButton_clicked()
 {
     this->close();
     emit playExitSound();
 }
 
-void UserTableInsertWindow::on_insertButton_clicked()
+void StaffTableInsertWindow::on_insertButton_clicked()
 {
     insertData();
     emit playMenuSound();
 }
 
-void UserTableInsertWindow::insertData()
+void StaffTableInsertWindow::insertData()
 {
     QString name = ui->nameLineEdit->text();
-    QString birthday = ui->yearLineEdit->text(); // Убедитесь, что есть поле для даты рождения
-    QString status = ui->statusLineEdit->text();
+    QString birthday = ui->yearLineEdit->text();
+    QString post = ui->postLineEdit->text();
     QString phone = ui->phoneLineEdit->text();
     QString email = ui->emailLineEdit->text();
 
-    if (name.isEmpty() || birthday.isEmpty() || status.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+    if (name.isEmpty() || birthday.isEmpty() || post.isEmpty() || phone.isEmpty() || email.isEmpty()) {
         QMessageBox::critical(this, "Ошибка", "Все поля должны быть заполнены!");
         return;
     }
@@ -107,36 +107,36 @@ void UserTableInsertWindow::insertData()
     QSqlQuery query;
 
     if (!idForUpdate.isEmpty()) {
-        query.prepare("UPDATE usersTable SET name = :name, birthday = :birthday, status = :status, phone = :phone, email = :email WHERE id = :id");
+        query.prepare("UPDATE staffTable SET name = :name, birthday = :birthday, post = :post, phone = :phone, email = :email WHERE id = :id");
         query.bindValue(":id", idForUpdate);
     } else {
-        query.prepare("INSERT INTO usersTable (name, birthday, status, phone, email) VALUES (:name, :birthday, :status, :phone, :email)");
+        query.prepare("INSERT INTO staffTable (name, birthday, post, phone, email) VALUES (:name, :birthday, :post, :phone, :email)");
     }
 
     query.bindValue(":name", name);
     query.bindValue(":birthday", birthday);
-    query.bindValue(":status", status);
+    query.bindValue(":post", post);
     query.bindValue(":phone", phone);
     query.bindValue(":email", email);
 
     if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса: " << query.lastError().text();
-        QMessageBox::critical(this, "Ошибка", "Ошибка выполнения запроса: " + query.lastError().text());
+        qDebug() << "Ошибка вставки/обновления данных:" << query.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Ошибка вставки/обновления данных: " + query.lastError().text());
     } else {
-        qDebug() << "Данные успешно добавлены или обновлены!";
-        QMessageBox::information(this, "Успех", "Данные пользователя успешно добавлены/обновлены!");
+        qDebug() << "Данные успешно вставлены/обновлены!";
+        QMessageBox::information(this, "Успех", "Данные сотрудника успешно добавлены/обновлены!");
         emit dataInserted();
-        this->close();
+        close();
     }
 }
 
 
-void UserTableInsertWindow::setDataForEditing(const QString &id, const QString &name, const QString &birthday,
-                                              const QString &status, const QString &phone, const QString &email)
+void StaffTableInsertWindow::setDataForEditing(const QString &id, const QString &name, const QString &birthday,
+                                              const QString &post, const QString &phone, const QString &email)
 {
     ui->nameLineEdit->setText(name);
     ui->yearLineEdit->setText(birthday);
-    ui->statusLineEdit->setText(status);
+    ui->postLineEdit->setText(post);
     ui->phoneLineEdit->setText(phone);
     ui->emailLineEdit->setText(email);
 

@@ -184,7 +184,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Дата выпуска (формат заполнения: год-месяц-день)</string>
+          <string>Дата выпуска</string>
          </property>
         </widget>
        </item>

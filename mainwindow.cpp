@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , autoTableInsertWindow(new AutoTableInsertWindow(this))
     , userTableWidget(new UserTableWidget(this))
     , partnerTableWidget(new PartnerTableWidget(this))
+    , staffTableWidget(new StaffTableWidget(this))
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->workZoneWidget->addWidget(autoTableWidget);
     ui->workZoneWidget->addWidget(userTableWidget);
     ui->workZoneWidget->addWidget(partnerTableWidget);
+    ui->workZoneWidget->addWidget(staffTableWidget);
     ui->workZoneWidget->setCurrentWidget(slideWidget);
 
     menuSoundEffect = new QSoundEffect(this);
@@ -54,6 +56,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(partnerTableWidget, &PartnerTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(partnerTableWidget, &PartnerTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(partnerTableWidget, &PartnerTableWidget::playExitSound, this, &MainWindow::playExitSound);
+    connect(staffTableWidget, &StaffTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
+    connect(staffTableWidget, &StaffTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(staffTableWidget, &StaffTableWidget::playExitSound, this, &MainWindow::playExitSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
 
@@ -133,6 +138,7 @@ void MainWindow::on_partner_list_button_clicked()
 void MainWindow::on_staff_list_button_clicked()
 {
     stopSlideShowAndResizeButtons();
+    showStaffTableWidget();
     playMenuSound();
 }
 
@@ -226,6 +232,7 @@ void MainWindow::changeButtonColor(const QColor &color) {
     autoTableInsertWindow->updateButtonColor(color); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
     userTableWidget->updateButtonColor(color);
     partnerTableWidget->updateButtonColor(color);
+    staffTableWidget->updateButtonColor(color);
     updateTextColor();
 }
 
@@ -252,12 +259,14 @@ void MainWindow::resetSettings() {
     autoTableInsertWindow->updateButtonFontColor(Qt::white); // ---------------------------ДОБАВЛЕНИЕ-ВИДЖЕТОВ------------------------------------ //
     userTableWidget->updateButtonFontColor(Qt::white);
     partnerTableWidget->updateButtonFontColor(Qt::white);
+    staffTableWidget->updateButtonFontColor(Qt::white);
     optionsWidget->updateLabel(Qt::white);
     optionsWidget->updateButtonColor("#545454");
     autoTableWidget->updateButtonColor("#545454");
     autoTableInsertWindow->updateButtonColor("#545454");
     userTableWidget->updateButtonColor("#545454");
     partnerTableWidget->updateButtonColor("#545454");
+    staffTableWidget->updateButtonColor("#545454");
     changeButtonHeight(41);
 }
 
@@ -310,6 +319,7 @@ void MainWindow::fontColorChanged(const QColor &color)
     autoTableInsertWindow->updateButtonFontColor(color);
     userTableWidget->updateButtonFontColor(color);
     partnerTableWidget->updateButtonFontColor(color);
+    staffTableWidget->updateButtonFontColor(color);
 }
 
 void MainWindow::changeButtonFont(int size)
@@ -336,6 +346,7 @@ void MainWindow::changeButtonHeight(int height)
     autoTableInsertWindow->updateButtonHeight(height);
     userTableWidget->updateButtonHeight(height);
     partnerTableWidget->updateButtonHeight(height);
+    staffTableWidget->updateButtonHeight(height);
 }
 
 void MainWindow::showAutoTableWidget()
@@ -353,5 +364,10 @@ void MainWindow::showUserTableWidget() {
 
 void MainWindow::showPartnerTableWidget() {
     ui->workZoneWidget->setCurrentWidget(partnerTableWidget);
+    slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
+}
+
+void MainWindow::showStaffTableWidget() {
+    ui->workZoneWidget->setCurrentWidget(staffTableWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AutoTableWidget</class>
- <widget class="QWidget" name="AutoTableWidget">
+ <class>StaffTableWidget</class>
+ <widget class="QWidget" name="StaffTableWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,6 +9,12 @@
     <width>1224</width>
     <height>694</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1224</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -24,7 +30,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QTableWidget" name="autoTableWidget_2">
+     <widget class="QTableWidget" name="userTableWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -88,6 +94,9 @@
         <disabled/>
        </palette>
       </property>
+      <property name="dragEnabled">
+       <bool>false</bool>
+      </property>
       <property name="sortingEnabled">
        <bool>true</bool>
       </property>
@@ -98,42 +107,27 @@
       </column>
       <column>
        <property name="text">
-        <string>Имя, марка</string>
+        <string>Имя</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Год выпуска</string>
+        <string>Дата рождения</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Пробег</string>
+        <string>Должность</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>КПП</string>
+        <string>Номер телефона</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Руль</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Состояние</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Цена за час</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Цена за день</string>
+        <string>Адрес email</string>
        </property>
       </column>
      </widget>

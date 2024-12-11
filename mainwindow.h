@@ -17,6 +17,7 @@
 #include "autotableinsertwindow.h"
 #include "usertablewidget.h"
 #include "partnertablewidget.h"
+#include "stafftablewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -55,6 +56,7 @@ private slots:
     void showAutoTableWidget();
     void showUserTableWidget();
     void showPartnerTableWidget();
+    void showStaffTableWidget();
 
 private:
     Ui::MainWindow *ui;
@@ -68,6 +70,7 @@ private:
     AutoTableInsertWindow *autoTableInsertWindow;
     UserTableWidget *userTableWidget;
     PartnerTableWidget *partnerTableWidget;
+    StaffTableWidget *staffTableWidget;
 };
 
 #endif // MAINWINDOW_H

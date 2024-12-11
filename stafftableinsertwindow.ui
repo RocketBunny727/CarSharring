@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserTableInsertWindow</class>
- <widget class="QMainWindow" name="UserTableInsertWindow">
+ <class>StaffTableInsertWindow</class>
+ <widget class="QMainWindow" name="StaffTableInsertWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -233,12 +233,12 @@
           </font>
          </property>
          <property name="text">
-          <string>Статус пользователя</string>
+          <string>Должность</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="statusLineEdit"/>
+        <widget class="QLineEdit" name="postLineEdit"/>
        </item>
        <item>
         <widget class="QLabel" name="phoneLabel">
