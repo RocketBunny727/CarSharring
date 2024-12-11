@@ -48,18 +48,24 @@ MainWindow::MainWindow(QWidget *parent)
     connect(optionsWidget, &OptionsWidget::playExitSound, this, &MainWindow::playExitSound);
     connect(optionsWidget, &OptionsWidget::buttonFontChanged, this, &MainWindow::changeButtonFont);
     connect(optionsWidget, &OptionsWidget::buttonHeightChanged, this, &MainWindow::changeButtonHeight);
+    connect(optionsWidget, &OptionsWidget::screenModeChanged, this, &MainWindow::changeScreenMode);
+
     connect(autoTableWidget, &AutoTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(autoTableWidget, &AutoTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableWidget, &AutoTableWidget::playExitSound, this, &MainWindow::playExitSound);
+
     connect(userTableWidget, &UserTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(userTableWidget, &UserTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(userTableWidget, &UserTableWidget::playExitSound, this, &MainWindow::playExitSound);
+
     connect(partnerTableWidget, &PartnerTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(partnerTableWidget, &PartnerTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(partnerTableWidget, &PartnerTableWidget::playExitSound, this, &MainWindow::playExitSound);
+
     connect(staffTableWidget, &StaffTableWidget::closeOptions, this, &MainWindow::onOptionsClose);
     connect(staffTableWidget, &StaffTableWidget::playMenuSound, this, &MainWindow::playMenuSound);
     connect(staffTableWidget, &StaffTableWidget::playExitSound, this, &MainWindow::playExitSound);
+
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
 
@@ -448,3 +454,20 @@ void MainWindow::loadSettings() {
     }
 }
 
+void MainWindow::changeScreenMode()
+{
+    QPushButton *screenButton = optionsWidget->findChild<QPushButton*>("screenButton");
+
+    if (!screenButton) {
+        qWarning() << "screenButton не найден!";
+        return;
+    }
+
+    if (isFullScreen()) {
+        showNormal();
+        screenButton->setText("Полноэкранный режим");
+    } else {
+        showFullScreen();
+        screenButton->setText("Экранный режим");
+    }
+}

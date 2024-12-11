@@ -53,7 +53,7 @@ void OptionsWidget::on_closeButton_clicked()
 }
 
 void OptionsWidget::updateButtonColor(const QColor &color) {
-    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->screenButton, ui->closeButton, ui->resetButton};
     for (QPushButton *button : buttons) {
         QPalette palette = button->palette();
         palette.setColor(QPalette::Button, color);
@@ -63,7 +63,7 @@ void OptionsWidget::updateButtonColor(const QColor &color) {
 }
 
 void OptionsWidget::updateButtonFontColor(const QColor &color) {
-    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->screenButton, ui->closeButton, ui->resetButton};
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
         buttonPalette.setColor(QPalette::ButtonText, color);
@@ -73,7 +73,7 @@ void OptionsWidget::updateButtonFontColor(const QColor &color) {
 
 void OptionsWidget::updateTextColor()
 {
-    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->screenButton, ui->closeButton, ui->resetButton};
 
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
@@ -93,7 +93,7 @@ void OptionsWidget::updateTextColor()
 }
 
 void OptionsWidget::updateButtonHeight(int height) {
-    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->closeButton, ui->resetButton};
+    QList<QPushButton *> buttons = {ui->backgroundColorButton, ui->buttonColorButton, ui->fontColorButton, ui->screenButton, ui->closeButton, ui->resetButton};
 
     for (QPushButton *button : buttons) {
         button->setFixedHeight(height);
@@ -117,5 +117,11 @@ void OptionsWidget::updateLabel(const QColor &color) {
     QPalette textPalette = ui->label->palette();
     textPalette.setColor(QPalette::WindowText, color);
     ui->label->setPalette(textPalette);
+}
+
+
+void OptionsWidget::on_screenButton_clicked()
+{
+    emit screenModeChanged();
 }
 

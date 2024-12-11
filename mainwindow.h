@@ -64,6 +64,7 @@ private slots:
     void showStaffTableWidget();
     void saveSettings();
     void loadSettings();
+    void changeScreenMode();
 
 private:
     Ui::MainWindow *ui;
