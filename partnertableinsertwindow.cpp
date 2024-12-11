@@ -76,7 +76,7 @@ void PartnerTableInsertWindow::updateTextColor()
 }
 
 void PartnerTableInsertWindow::updateLabel(const QColor &color) {
-    // Реализация изменения цвета метки (если требуется)
+
 }
 
 void PartnerTableInsertWindow::on_closeButton_clicked()

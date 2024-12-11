@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1965</width>
+    <width>2015</width>
     <height>980</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -1431,7 +1431,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1965</width>
+     <width>2015</width>
      <height>21</height>
     </rect>
    </property>

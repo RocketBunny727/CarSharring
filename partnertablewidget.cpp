@@ -75,7 +75,7 @@ void PartnerTableWidget::loadTableData()
             maxLength = qMax(maxLength, cellText.length());
         }
 
-        ui->partnertableWidget->setColumnWidth(col, qMax(maxLength * 10, 100));  // Умножаем на коэффициент для корректной ширины
+        ui->partnertableWidget->setColumnWidth(col, qMax(maxLength * 10, 100));
     }
 }
 

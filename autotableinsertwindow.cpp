@@ -134,8 +134,8 @@ void AutoTableInsertWindow::insertData()
     } else {
         qDebug() << "Данные успешно добавлены или обновлены!";
         QMessageBox::information(this, "Успех", "Авто успешно добавлено/обновлено!");
-        emit dataInserted(); // Отправляем сигнал об успешной вставке/обновлении данных
-        this->close(); // Закрываем окно после успешной вставки
+        emit dataInserted();
+        this->close();
     }
 }
 

@@ -94,7 +94,7 @@ void UserTableInsertWindow::on_insertButton_clicked()
 void UserTableInsertWindow::insertData()
 {
     QString name = ui->nameLineEdit->text();
-    QString birthday = ui->yearLineEdit->text(); // Убедитесь, что есть поле для даты рождения
+    QString birthday = ui->yearLineEdit->text();
     QString status = ui->statusLineEdit->text();
     QString phone = ui->phoneLineEdit->text();
     QString email = ui->emailLineEdit->text();

@@ -62,26 +62,21 @@ void AutoTableWidget::loadTableData()
         }
     }
 
-    // Устанавливаем ширину первого столбца
     ui->autoTableWidget_2->setColumnWidth(0, 50);
     ui->autoTableWidget_2->horizontalHeader()->resizeSection(0, 50);
 
-    // Устанавливаем ширину для остальных столбцов в зависимости от содержимого
     for (int col = 1; col < columnCount; ++col) {
         int maxLength = 0;
 
-        // Проверяем заголовок
         QString headerText = ui->autoTableWidget_2->horizontalHeaderItem(col)->text();
         maxLength = qMax(maxLength, headerText.length());
 
-        // Проверяем все строки в этом столбце
         for (int row = 0; row < rowCount; ++row) {
             QString cellText = ui->autoTableWidget_2->item(row, col)->text();
             maxLength = qMax(maxLength, cellText.length());
         }
 
-        // Устанавливаем ширину столбца в соответствии с максимальной длиной
-        ui->autoTableWidget_2->setColumnWidth(col, qMax(maxLength * 10, 100));  // Умножаем на коэффициент для корректной ширины
+        ui->autoTableWidget_2->setColumnWidth(col, qMax(maxLength * 10, 100));
     }
 }
 
@@ -180,7 +175,7 @@ void AutoTableWidget::on_deleteButton_clicked()
     } else {
         qDebug() << "Данные успешно удалены!";
         QMessageBox::information(this, "Успех", "Авто успешно удалено!");
-        loadTableData(); // Обновляем данные таблицы после удаления
+        loadTableData();
     }
 }
 
@@ -192,7 +187,6 @@ void AutoTableWidget::on_editButton_clicked()
         return;
     }
 
-    // Получаем данные выбранной строки
     QString id = ui->autoTableWidget_2->item(currentRow, 0)->text();
     QString name = ui->autoTableWidget_2->item(currentRow, 1)->text();
     QString year = ui->autoTableWidget_2->item(currentRow, 2)->text();
@@ -203,14 +197,11 @@ void AutoTableWidget::on_editButton_clicked()
     QString costPerHour = ui->autoTableWidget_2->item(currentRow, 7)->text();
     QString costPerDay = ui->autoTableWidget_2->item(currentRow, 8)->text();
 
-    // Открываем окно редактирования с предзаполненными данными
     AutoTableInsertWindow *insertWindow = new AutoTableInsertWindow(this);
     insertWindow->setWindowTitle("Редактировать авто");
 
-    // Передаем данные в форму редактирования
     insertWindow->setDataForEditing(id, name, year, mileage, transmission, wheelSide, status, costPerHour, costPerDay);
 
-    // Подключаем сигнал для обновления таблицы
     connect(insertWindow, &AutoTableInsertWindow::dataInserted, this, &AutoTableWidget::loadTableData);
 
     insertWindow->show();

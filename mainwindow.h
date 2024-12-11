@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QColor>
 #include <QGraphicsOpacityEffect>
 #include <QTimer>
 #include <QSoundEffect>
@@ -57,6 +62,8 @@ private slots:
     void showUserTableWidget();
     void showPartnerTableWidget();
     void showStaffTableWidget();
+    void saveSettings();
+    void loadSettings();
 
 private:
     Ui::MainWindow *ui;

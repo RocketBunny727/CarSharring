@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/icon/assets/icon.png"));
+    loadSettings();
 
     ui->workZoneWidget->addWidget(slideWidget);
     ui->workZoneWidget->addWidget(optionsWidget);
@@ -62,10 +63,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
 
+    showFullScreen();
 }
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete menuSoundEffect;
     delete ui;
 }
@@ -166,10 +169,9 @@ void MainWindow::on_exit_button_clicked()
     }
 }
 
-void MainWindow::stopSlideShowAndResizeButtons()
-{
-    timer->stop();
-    slideWidget->findChild<QLabel*>("label_pic")->clear();
+void MainWindow::stopSlideShowAndResizeButtons() {
+    QLabel *label = slideWidget->findChild<QLabel*>("label_pic");
+    label->clear();
 
     QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
 
@@ -184,6 +186,7 @@ void MainWindow::stopSlideShowAndResizeButtons()
     }
 }
 
+
 void MainWindow::showOptionsWidget()
 {
     ui->workZoneWidget->setCurrentWidget(optionsWidget);
@@ -193,10 +196,6 @@ void MainWindow::showOptionsWidget()
 void MainWindow::showSliderWidget()
 {
     ui->workZoneWidget->setCurrentWidget(slideWidget);
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MainWindow::changeImage);
-    timer->start(5000);
-
     changeImage();
 }
 
@@ -216,6 +215,7 @@ void MainWindow::changeBackgroundColor(const QColor &color) {
     else {
         optionsWidget->updateLabel(Qt::white);
     }
+    saveSettings();
 }
 
 void MainWindow::changeButtonColor(const QColor &color) {
@@ -234,6 +234,7 @@ void MainWindow::changeButtonColor(const QColor &color) {
     partnerTableWidget->updateButtonColor(color);
     staffTableWidget->updateButtonColor(color);
     updateTextColor();
+    saveSettings();
 }
 
 void MainWindow::resetSettings() {
@@ -268,6 +269,7 @@ void MainWindow::resetSettings() {
     partnerTableWidget->updateButtonColor("#545454");
     staffTableWidget->updateButtonColor("#545454");
     changeButtonHeight(41);
+    saveSettings();
 }
 
 void MainWindow::restoreButtonSizes() {
@@ -302,6 +304,7 @@ void MainWindow::updateTextColor()
         buttonPalette.setColor(QPalette::ButtonText, buttonTextColor);
         button->setPalette(buttonPalette);
     }
+    saveSettings();
 }
 
 
@@ -320,6 +323,7 @@ void MainWindow::fontColorChanged(const QColor &color)
     userTableWidget->updateButtonFontColor(color);
     partnerTableWidget->updateButtonFontColor(color);
     staffTableWidget->updateButtonFontColor(color);
+    saveSettings();
 }
 
 void MainWindow::changeButtonFont(int size)
@@ -347,6 +351,7 @@ void MainWindow::changeButtonHeight(int height)
     userTableWidget->updateButtonHeight(height);
     partnerTableWidget->updateButtonHeight(height);
     staffTableWidget->updateButtonHeight(height);
+    saveSettings();
 }
 
 void MainWindow::showAutoTableWidget()
@@ -371,3 +376,60 @@ void MainWindow::showStaffTableWidget() {
     ui->workZoneWidget->setCurrentWidget(staffTableWidget);
     slideWidget->findChild<QLabel*>("label_pic")->setGraphicsEffect(opacityEffect);
 }
+
+void MainWindow::saveSettings() {
+    QFile file("settings.txt");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+
+        // Сохраняем цвет фона
+        QPalette palette = this->palette();
+        QColor bgColor = palette.color(QPalette::Window);
+        out << "BackgroundColor:" << bgColor.name() << "\n";
+
+        // Сохраняем цвет кнопок и шрифта
+        QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
+        if (!buttons.isEmpty()) {
+            QPalette buttonPalette = buttons[0]->palette();
+            QColor buttonColor = buttonPalette.color(QPalette::Button);
+            QColor buttonTextColor = buttonPalette.color(QPalette::ButtonText);
+            out << "ButtonColor:" << buttonColor.name() << "\n";
+            out << "ButtonTextColor:" << buttonTextColor.name() << "\n";
+        }
+
+        // Сохраняем размер кнопок
+        if (!buttons.isEmpty()) {
+            int buttonHeight = buttons[0]->height();
+            out << "ButtonHeight:" << buttonHeight << "\n";
+        }
+
+        file.close();
+    }
+}
+
+void MainWindow::loadSettings() {
+    QFile file("settings.txt");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        QString line;
+        while (in.readLineInto(&line)) {
+            QStringList parts = line.split(":");
+            if (parts.size() == 2) {
+                QString key = parts[0];
+                QString value = parts[1];
+
+                if (key == "BackgroundColor") {
+                    changeBackgroundColor(QColor(value));
+                } else if (key == "ButtonColor") {
+                    changeButtonColor(QColor(value));
+                } else if (key == "ButtonTextColor") {
+                    fontColorChanged(QColor(value));
+                } else if (key == "ButtonHeight") {
+                    changeButtonHeight(value.toInt());
+                }
+            }
+        }
+        file.close();
+    }
+}
+
