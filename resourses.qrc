@@ -29,4 +29,8 @@
         <file>assets/wall_pics/17.jpg</file>
         <file>assets/wall_pics/main.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>assets/sounds/SelectingMenuSound.wav</file>
+        <file>assets/sounds/ExitMenuSound.wav</file>
+    </qresource>
 </RCC>
