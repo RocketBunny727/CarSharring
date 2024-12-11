@@ -268,6 +268,12 @@ void MainWindow::resetSettings() {
     userTableWidget->updateButtonColor("#545454");
     partnerTableWidget->updateButtonColor("#545454");
     staffTableWidget->updateButtonColor("#545454");
+
+    QSlider* fontSizeSlider = optionsWidget->findChild<QSlider*>("fontSizeSlider");
+    if (fontSizeSlider) {
+        fontSizeSlider->setValue(0);
+    }
+
     changeButtonHeight(41);
     saveSettings();
 }
@@ -382,12 +388,10 @@ void MainWindow::saveSettings() {
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
 
-        // Сохраняем цвет фона
         QPalette palette = this->palette();
         QColor bgColor = palette.color(QPalette::Window);
         out << "BackgroundColor:" << bgColor.name() << "\n";
 
-        // Сохраняем цвет кнопок и шрифта
         QList<QPushButton *> buttons = {ui->auto_list_button, ui->user_list_button, ui->partner_list_button, ui->staff_list_button, ui->setting_button, ui->exit_button};
         if (!buttons.isEmpty()) {
             QPalette buttonPalette = buttons[0]->palette();
@@ -401,6 +405,12 @@ void MainWindow::saveSettings() {
         if (!buttons.isEmpty()) {
             int buttonHeight = buttons[0]->height();
             out << "ButtonHeight:" << buttonHeight << "\n";
+        }
+
+        QSlider* fontSizeSlider = optionsWidget->findChild<QSlider*>("fontSizeSlider");
+        if (fontSizeSlider) {
+            int sliderPosition = fontSizeSlider->value();
+            out << "FontSizeSliderPosition:" << sliderPosition << "\n";
         }
 
         file.close();
@@ -426,6 +436,11 @@ void MainWindow::loadSettings() {
                     fontColorChanged(QColor(value));
                 } else if (key == "ButtonHeight") {
                     changeButtonHeight(value.toInt());
+                } else if (key == "FontSizeSliderPosition") {
+                    QSlider* fontSizeSlider = optionsWidget->findChild<QSlider*>("fontSizeSlider");
+                    if (fontSizeSlider) {
+                        fontSizeSlider->setValue(value.toInt());
+                    }
                 }
             }
         }
