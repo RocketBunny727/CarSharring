@@ -81,6 +81,7 @@ void PartnerTableWidget::loadTableData()
 
 void PartnerTableWidget::on_insertButton_clicked()
 {
+    emit playMenuSound();
     PartnerTableInsertWindow *insertWindow = new PartnerTableInsertWindow(this);
     connect(insertWindow, &PartnerTableInsertWindow::dataInserted, this, &PartnerTableWidget::onDataInserted);
     insertWindow->show();
@@ -88,32 +89,54 @@ void PartnerTableWidget::on_insertButton_clicked()
 
 void PartnerTableWidget::on_deleteButton_clicked()
 {
-    int selectedRow = ui->partnertableWidget->currentRow();
-    if (selectedRow >= 0) {
-        QString id = ui->partnertableWidget->item(selectedRow, 0)->text();
-        QSqlQuery query;
-        query.prepare("DELETE FROM partnerTable WHERE id = :id");
-        query.bindValue(":id", id);
+    emit playMenuSound();
+    int currentRow = ui->partnertableWidget->currentRow();
+    if (currentRow == -1) {
+        QMessageBox::critical(this, "Ошибка", "Выберите строку для удаления!");
+        return;
+    }
 
-        if (!query.exec()) {
-            qDebug() << "Ошибка выполнения запроса на удаление: " << query.lastError().text();
-            QMessageBox::critical(this, "Ошибка", "Ошибка выполнения запроса на удаление: " + query.lastError().text());
-        } else {
-            qDebug() << "Запись успешно удалена!";
-            ui->partnertableWidget->removeRow(selectedRow);
-        }
+    QString name = ui->partnertableWidget->item(currentRow, 1)->text();
+
+    // Окно подтверждения удаления
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Удалить строку?", "Удалить строку: " + name + "?", QMessageBox::Ok | QMessageBox::Cancel);
+    if (reply == QMessageBox::Cancel) {
+        emit playExitSound();
+        return;
+    }
+
+    QTableWidgetItem *idItem = ui->partnertableWidget->item(currentRow, 0);
+    if (!idItem) {
+        QMessageBox::critical(this, "Ошибка", "Не удалось получить ID выбранной строки!");
+        return;
+    }
+
+    QString id = idItem->text();
+
+    QSqlQuery query;
+    query.prepare("DELETE FROM partnerTable WHERE id = :id");
+    query.bindValue(":id", id);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка удаления данных:" << query.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Ошибка удаления данных: " + query.lastError().text());
     } else {
-        QMessageBox::warning(this, "Внимание", "Пожалуйста, выберите строку для удаления.");
+        qDebug() << "Данные успешно удалены!";
+        QMessageBox::information(this, "Успех", "Пользователь успешно удален!");
+        loadTableData();
     }
 }
 
 void PartnerTableWidget::on_closeButton_clicked()
 {
+    emit playExitSound();
     emit closeOptions();
 }
 
 void PartnerTableWidget::on_editButton_clicked()
 {
+    emit playMenuSound();
     int selectedRow = ui->partnertableWidget->currentRow();
     if (selectedRow >= 0) {
         QString id = ui->partnertableWidget->item(selectedRow, 0)->text();

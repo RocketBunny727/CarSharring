@@ -28,6 +28,7 @@ signals:
     void closeOptions();
     void playMenuSound();
     void playExitSound();
+    void screenModeChanged();
 
 private slots:
     void on_backgroundColorButton_clicked();
@@ -38,6 +39,8 @@ private slots:
     void updateTextColor();
     void on_fontSizeSlider_valueChanged(int value);
     void on_spinBox_valueChanged(int arg1);
+
+    void on_screenButton_clicked();
 
 public slots:
     void updateButtonColor(const QColor &color);
