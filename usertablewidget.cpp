@@ -135,6 +135,7 @@ void UserTableWidget::updateLabel(const QColor &color) {
 
 void UserTableWidget::on_insertButton_clicked()
 {
+    emit playMenuSound();
     UserTableInsertWindow *insertWindow = new UserTableInsertWindow(this);
     connect(insertWindow, &UserTableInsertWindow::dataInserted, this, &UserTableWidget::loadTableData);
     insertWindow->show();
@@ -142,6 +143,7 @@ void UserTableWidget::on_insertButton_clicked()
 
 void UserTableWidget::on_deleteButton_clicked()
 {
+    emit playMenuSound();
     int currentRow = ui->userTableWidget->currentRow();
     if (currentRow == -1) {
         QMessageBox::critical(this, "Ошибка", "Выберите строку для удаления!");
@@ -154,6 +156,7 @@ void UserTableWidget::on_deleteButton_clicked()
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Удалить строку?", "Удалить строку: " + name + "?", QMessageBox::Ok | QMessageBox::Cancel);
     if (reply == QMessageBox::Cancel) {
+        emit playExitSound();
         return;
     }
 
@@ -187,6 +190,7 @@ void UserTableWidget::on_closeButton_clicked()
 
 void UserTableWidget::on_editButton_clicked()
 {
+    emit playMenuSound();
     int currentRow = ui->userTableWidget->currentRow();
     if (currentRow == -1) {
         QMessageBox::critical(this, "Ошибка", "Выберите строку для редактирования!");

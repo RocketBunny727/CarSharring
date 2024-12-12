@@ -134,6 +134,7 @@ void AutoTableWidget::updateLabel(const QColor &color) {
 
 void AutoTableWidget::on_insertButton_clicked()
 {
+    emit playMenuSound();
     AutoTableInsertWindow *insertWindow = new AutoTableInsertWindow(this);
     connect(insertWindow, &AutoTableInsertWindow::dataInserted, this, &AutoTableWidget::loadTableData);
     insertWindow->show();
@@ -147,13 +148,13 @@ void AutoTableWidget::on_deleteButton_clicked()
         return;
     }
 
-    // Получаем название автомобиля из выбранной строки
+    emit playMenuSound();
     QString name = ui->autoTableWidget_2->item(currentRow, 1)->text();
 
-    // Окно подтверждения удаления
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Удалить строку?", "Удалить строку: " + name + "?", QMessageBox::Ok | QMessageBox::Cancel);
     if (reply == QMessageBox::Cancel) {
+        emit playExitSound();
         return;
     }
 
@@ -181,6 +182,7 @@ void AutoTableWidget::on_deleteButton_clicked()
 
 void AutoTableWidget::on_editButton_clicked()
 {
+    emit playMenuSound();
     int currentRow = ui->autoTableWidget_2->currentRow();
     if (currentRow == -1) {
         QMessageBox::critical(this, "Ошибка", "Выберите строку для редактирования!");

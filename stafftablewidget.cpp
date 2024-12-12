@@ -134,6 +134,7 @@ void StaffTableWidget::updateLabel(const QColor &color) {
 
 void StaffTableWidget::on_insertButton_clicked()
 {
+    emit playMenuSound();
     StaffTableInsertWindow *insertWindow = new StaffTableInsertWindow(this);
     connect(insertWindow, &StaffTableInsertWindow::dataInserted, this, &StaffTableWidget::loadTableData);
     insertWindow->show();
@@ -141,6 +142,7 @@ void StaffTableWidget::on_insertButton_clicked()
 
 void StaffTableWidget::on_deleteButton_clicked()
 {
+    emit playMenuSound();
     int currentRow = ui->userTableWidget->currentRow();
     if (currentRow == -1) {
         QMessageBox::critical(this, "Ошибка", "Выберите строку для удаления!");
@@ -153,6 +155,7 @@ void StaffTableWidget::on_deleteButton_clicked()
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Удалить строку?", "Удалить строку: " + name + "?", QMessageBox::Ok | QMessageBox::Cancel);
     if (reply == QMessageBox::Cancel) {
+        emit playExitSound();
         return;
     }
 
@@ -186,6 +189,7 @@ void StaffTableWidget::on_closeButton_clicked()
 
 void StaffTableWidget::on_editButton_clicked()
 {
+    emit playMenuSound();
     int currentRow = ui->userTableWidget->currentRow();
     if (currentRow == -1) {
         QMessageBox::critical(this, "Ошибка", "Выберите строку для редактирования!");
