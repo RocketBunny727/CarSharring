@@ -472,6 +472,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="costCheckBox">
+         <property name="text">
+          <string>Ввести цену вручную</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="costPerHourLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

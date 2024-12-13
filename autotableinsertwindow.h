@@ -33,6 +33,8 @@ private slots:
     void on_closeButton_clicked();
     void updateTextColor();
     void on_insertButton_clicked();
+    void updateCost();
+    void toggleCostInputs(bool checked);
 
 public slots:
     void updateButtonColor(const QColor &color);
