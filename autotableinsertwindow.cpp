@@ -8,14 +8,12 @@ AutoTableInsertWindow::AutoTableInsertWindow(QWidget *parent)
     ui->setupUi(this);
     setupDatabase();
 
-    // Подключаем сигналы к слотам
     connect(ui->statusComboBox, &QComboBox::currentTextChanged, this, &AutoTableInsertWindow::updateCost);
     connect(ui->yearLineEdit, &QLineEdit::textChanged, this, &AutoTableInsertWindow::updateCost);
     connect(ui->mileageLineEdit, &QLineEdit::textChanged, this, &AutoTableInsertWindow::updateCost);
     connect(ui->transmissionComboBox, &QComboBox::currentTextChanged, this, &AutoTableInsertWindow::updateCost);
     connect(ui->costCheckBox, &QCheckBox::toggled, this, &AutoTableInsertWindow::toggleCostInputs);
 
-    // Изначально скрываем элементы ввода цены
     toggleCostInputs(ui->costCheckBox->isChecked());
 }
 

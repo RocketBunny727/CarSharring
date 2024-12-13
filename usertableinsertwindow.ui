@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>706</height>
+    <width>927</width>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>791</width>
+      <width>924</width>
       <height>651</height>
      </rect>
     </property>
@@ -238,7 +238,35 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="statusLineEdit"/>
+        <widget class="QComboBox" name="statusComboBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>168</width>
+           <height>0</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Обычный</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Премиум</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>VIP-клиент</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="phoneLabel">
@@ -525,7 +553,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>927</width>
      <height>21</height>
     </rect>
    </property>
