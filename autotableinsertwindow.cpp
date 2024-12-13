@@ -96,9 +96,9 @@ void AutoTableInsertWindow::insertData()
     QString name = ui->nameLineEdit->text();
     QString year = ui->yearLineEdit->text();
     QString mileage = ui->mileageLineEdit->text();
-    QString status = ui->statusLineEdit->text();
-    QString transmission = ui->transmissionLineEdit->text();
-    QString wheelSide = ui->wheelLineEdit->text();
+    QString status = ui->statusComboBox->currentText();
+    QString transmission = ui->transmissionComboBox->currentText();
+    QString wheelSide = ui->wheelComboBox->currentText();
     QString costPerHour = ui->costPerHourLineEdit->text();
     QString costPerDay = ui->costPerDayLineEdit->text();
 
@@ -143,16 +143,15 @@ void AutoTableInsertWindow::setDataForEditing(const QString &id, const QString &
                                               const QString &mileage, const QString &transmission, const QString &wheelSide,
                                               const QString &status, const QString &costPerHour, const QString &costPerDay)
 {
-    // Заполняем поля формы текущими данными
     ui->nameLineEdit->setText(name);
     ui->yearLineEdit->setText(year);
     ui->mileageLineEdit->setText(mileage);
-    ui->statusLineEdit->setText(status);
-    ui->transmissionLineEdit->setText(transmission);
-    ui->wheelLineEdit->setText(wheelSide);
     ui->costPerHourLineEdit->setText(costPerHour);
     ui->costPerDayLineEdit->setText(costPerDay);
+    ui->statusComboBox->setCurrentText(status);
+    ui->transmissionComboBox->setCurrentText(transmission);
+    ui->wheelComboBox->setCurrentText(wheelSide);
 
-    // Сохраняем ID для последующего обновления записи
     this->idForUpdate = id;
 }
+
