@@ -75,6 +75,7 @@ private:
     OptionsWidget *optionsWidget;
     Slide *slideWidget;
     AutoTableWidget *autoTableWidget;
+    RentWindow *rentWindow;
     AutoTableInsertWindow *autoTableInsertWindow;
     UserTableWidget *userTableWidget;
     PartnerTableWidget *partnerTableWidget;
