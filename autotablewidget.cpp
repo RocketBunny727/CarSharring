@@ -55,11 +55,34 @@ void AutoTableWidget::loadTableData()
     ui->autoTableWidget_2->setColumnCount(columnCount);
 
     for (int row = 0; row < rowCount; ++row) {
+        QString status = model->data(model->index(row, 6)).toString();
+        QColor rowColor;
+
+        // Set row color based on status
+        if (status == "В АРЕНДЕ") {
+            rowColor = QColor(Qt::blue);
+        } else if (status == "Не подлежит восстановлению" || status == "Разбита" || status == "Неисправна") {
+            rowColor = QColor(Qt::red);
+        } else if(status == "Требует ремонта") {
+            rowColor = QColor("#ff7f00");
+        }else {
+            rowColor = QColor("#2d2d2d");
+        }
+
         for (int col = 0; col < columnCount; ++col) {
             QString data = model->data(model->index(row, col)).toString();
-            QTableWidgetItem *item = new QTableWidgetItem(data);
+            QTableWidgetItem *item = ui->autoTableWidget_2->item(row, col);
+
+            if (!item) {
+                item = new QTableWidgetItem(data);
+                ui->autoTableWidget_2->setItem(row, col, item);
+            } else {
+                item->setText(data);
+            }
+
             item->setTextAlignment(Qt::AlignCenter);
-            ui->autoTableWidget_2->setItem(row, col, item);
+            item->setBackground(rowColor);
+            item->setFont(QFont("Arial", 10));
         }
     }
 
@@ -80,6 +103,7 @@ void AutoTableWidget::loadTableData()
         ui->autoTableWidget_2->setColumnWidth(col, qMax(maxLength * 10, 100));
     }
 }
+
 
 void AutoTableWidget::updateButtonColor(const QColor &color) {
     QList<QPushButton *> buttons = {ui-> rentButton, ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
