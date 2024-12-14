@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , optionsWidget(new OptionsWidget(this))
     , slideWidget(new Slide(this))
     , autoTableWidget(new AutoTableWidget(this))
+    , rentWindow(new RentWindow(this))
     , autoTableInsertWindow(new AutoTableInsertWindow(this))
     , userTableWidget(new UserTableWidget(this))
     , partnerTableWidget(new PartnerTableWidget(this))
@@ -68,6 +69,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playMenuSound, this, &MainWindow::playMenuSound);
     connect(autoTableInsertWindow, &AutoTableInsertWindow::playExitSound, this, &MainWindow::playExitSound);
+
+    connect(rentWindow, &RentWindow::playMenuSound, this, &MainWindow::playMenuSound);
+    connect(rentWindow, &RentWindow::playExitSound, this, &MainWindow::playExitSound);
 
     showFullScreen();
 }

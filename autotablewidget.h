@@ -8,6 +8,7 @@
 #include <QSqlRecord>
 #include <QSqlQueryModel>
 #include <QTableWidgetItem>
+#include "rentwindow.h"
 
 namespace Ui {
 class AutoTableWidget;
@@ -31,6 +32,7 @@ private slots:
     void on_closeButton_clicked();
     void on_deleteButton_clicked();
     void on_editButton_clicked();
+    void on_rentButton_clicked();
     void loadTableData();
     void updateTextColor();
     void onDataInserted();
@@ -40,9 +42,11 @@ public slots:
     void updateButtonFontColor(const QColor &color);
     void updateButtonHeight(int height);
     void updateLabel(const QColor &color);
+    void updateAutoStatus(QString id, const QString &status);
 
 private:
     Ui::AutoTableWidget *ui;
+    RentWindow *rentWindow;
     QSqlDatabase db;
     void setupDatabase();
 };

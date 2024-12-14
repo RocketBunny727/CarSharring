@@ -1,6 +1,7 @@
-#include "autoTableWidget.h"
+#include "autotablewidget.h"
 #include "autotableinsertwindow.h"
-#include "ui_autoTableWidget.h"
+#include "ui_autotablewidget.h"
+#include "rentwindow.h"
 
 AutoTableWidget::AutoTableWidget(QWidget *parent) :
     QWidget(parent),
@@ -54,11 +55,34 @@ void AutoTableWidget::loadTableData()
     ui->autoTableWidget_2->setColumnCount(columnCount);
 
     for (int row = 0; row < rowCount; ++row) {
+        QString status = model->data(model->index(row, 6)).toString();
+        QColor rowColor;
+
+        // Set row color based on status
+        if (status == "В АРЕНДЕ") {
+            rowColor = QColor(Qt::blue);
+        } else if (status == "Не подлежит восстановлению" || status == "Разбита" || status == "Неисправна") {
+            rowColor = QColor(Qt::red);
+        } else if(status == "Требует ремонта") {
+            rowColor = QColor("#ff7f00");
+        }else {
+            rowColor = QColor("#2d2d2d");
+        }
+
         for (int col = 0; col < columnCount; ++col) {
             QString data = model->data(model->index(row, col)).toString();
-            QTableWidgetItem *item = new QTableWidgetItem(data);
+            QTableWidgetItem *item = ui->autoTableWidget_2->item(row, col);
+
+            if (!item) {
+                item = new QTableWidgetItem(data);
+                ui->autoTableWidget_2->setItem(row, col, item);
+            } else {
+                item->setText(data);
+            }
+
             item->setTextAlignment(Qt::AlignCenter);
-            ui->autoTableWidget_2->setItem(row, col, item);
+            item->setBackground(rowColor);
+            item->setFont(QFont("Arial", 10));
         }
     }
 
@@ -80,8 +104,9 @@ void AutoTableWidget::loadTableData()
     }
 }
 
+
 void AutoTableWidget::updateButtonColor(const QColor &color) {
-    QList<QPushButton *> buttons = {ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
+    QList<QPushButton *> buttons = {ui-> rentButton, ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
     for (QPushButton *button : buttons) {
         QPalette palette = button->palette();
         palette.setColor(QPalette::Button, color);
@@ -91,7 +116,7 @@ void AutoTableWidget::updateButtonColor(const QColor &color) {
 }
 
 void AutoTableWidget::updateButtonFontColor(const QColor &color) {
-    QList<QPushButton *> buttons = {ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
+    QList<QPushButton *> buttons = {ui-> rentButton, ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
         buttonPalette.setColor(QPalette::ButtonText, color);
@@ -100,7 +125,7 @@ void AutoTableWidget::updateButtonFontColor(const QColor &color) {
 }
 
 void AutoTableWidget::updateButtonHeight(int height) {
-    QList<QPushButton *> buttons = {ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
+    QList<QPushButton *> buttons = {ui-> rentButton, ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
 
     for (QPushButton *button : buttons) {
         button->setFixedHeight(height);
@@ -109,7 +134,7 @@ void AutoTableWidget::updateButtonHeight(int height) {
 
 void AutoTableWidget::updateTextColor()
 {
-    QList<QPushButton *> buttons = {ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
+    QList<QPushButton *> buttons = {ui-> rentButton, ui->insertButton, ui->closeButton, ui->editButton, ui->deleteButton};
 
     for (QPushButton *button : buttons) {
         QPalette buttonPalette = button->palette();
@@ -130,6 +155,41 @@ void AutoTableWidget::updateTextColor()
 
 void AutoTableWidget::updateLabel(const QColor &color) {
 
+}
+
+void AutoTableWidget::on_rentButton_clicked() {
+    int currentRow = ui->autoTableWidget_2->currentRow();
+    if (currentRow == -1) {
+        QMessageBox::critical(this, "Ошибка", "Выберите авто!");
+        return;
+    }
+
+    QString status = ui->autoTableWidget_2->item(currentRow, 6)->text();
+    QString autoName = ui->autoTableWidget_2->item(currentRow, 1)->text();
+    if(status == "В АРЕНДЕ") {
+        QMessageBox::critical(this, "Ошибка", "Авто уже в аренде!");
+        return;
+    }
+    if(status == "Разбита" || status == "Неисправна" || status == "Не подлежит восстановлению") {
+        QMessageBox::critical(this, "Ошибка", "Авто в непригодном состоянии!");
+        return;
+    }
+
+    emit playMenuSound();
+
+    QString autoId = ui->autoTableWidget_2->item(currentRow, 0)->text();
+    QString costPerHour = ui->autoTableWidget_2->item(currentRow, 7)->text();
+    QString costPerDay = ui->autoTableWidget_2->item(currentRow, 8)->text();
+
+    RentWindow *rentWindow = new RentWindow(this);
+    rentWindow->autoId = autoId;
+    rentWindow->setAutoName(autoName);
+    rentWindow->setWindowTitle("Расчет аренды авто");
+    rentWindow->setCostPerHour(costPerHour.toDouble());
+    rentWindow->setCostPerDay(costPerDay.toDouble());
+
+    connect(rentWindow, &RentWindow::updateAutoStatus, this, &AutoTableWidget::updateAutoStatus);
+    rentWindow->show();
 }
 
 void AutoTableWidget::on_insertButton_clicked()
@@ -218,4 +278,20 @@ void AutoTableWidget::on_closeButton_clicked()
 void AutoTableWidget::onDataInserted()
 {
     loadTableData();
+}
+
+void AutoTableWidget::updateAutoStatus(QString id, const QString &status)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE autoTable SET status = :status WHERE id = :id");
+    query.bindValue(":status", status);
+    query.bindValue(":id", id);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка обновления статуса авто:" << query.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Ошибка обновления статуса авто: " + query.lastError().text());
+    } else {
+        qDebug() << "Статус авто успешно обновлен!";
+        loadTableData();
+    }
 }

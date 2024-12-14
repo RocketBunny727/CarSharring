@@ -87,12 +87,6 @@ void PartnerTableInsertWindow::on_closeButton_clicked()
 
 void PartnerTableInsertWindow::on_insertButton_clicked()
 {
-    insertData();
-    emit playMenuSound();
-}
-
-void PartnerTableInsertWindow::insertData()
-{
     QString name = ui->nameLineEdit->text();
     QString role = ui->roleLineEdit->text();
     QString contactPerson = ui->contactLineEdit->text();
@@ -101,6 +95,18 @@ void PartnerTableInsertWindow::insertData()
 
     if (name.isEmpty() || role.isEmpty() || contactPerson.isEmpty() || phone.isEmpty() || email.isEmpty()) {
         QMessageBox::critical(this, "Ошибка", "Все поля должны быть заполнены!");
+        return;
+    }
+
+    QRegularExpression phoneRegex("^\\+?[1-9][0-9]{1,14}$");
+    if (!phoneRegex.match(phone).hasMatch()) {
+        QMessageBox::critical(this, "Ошибка", "Неверный формат номера телефона!");
+        return;
+    }
+
+    QRegularExpression emailRegex("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$");
+    if (!emailRegex.match(email).hasMatch()) {
+        QMessageBox::critical(this, "Ошибка", "Неверный формат email!");
         return;
     }
 

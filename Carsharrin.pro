@@ -18,6 +18,7 @@ SOURCES += \
     optionswidget.cpp \
     partnertableinsertwindow.cpp \
     partnertablewidget.cpp \
+    rentwindow.cpp \
     slide.cpp \
     stafftableinsertwindow.cpp \
     stafftablewidget.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     optionswidget.h \
     partnertableinsertwindow.h \
     partnertablewidget.h \
+    rentwindow.h \
     slide.h \
     stafftableinsertwindow.h \
     stafftablewidget.h \
@@ -44,6 +46,7 @@ FORMS += \
     optionswidget.ui \
     partnertableinsertwindow.ui \
     partnertablewidget.ui \
+    rentwindow.ui \
     slide.ui \
     stafftableinsertwindow.ui \
     stafftablewidget.ui \

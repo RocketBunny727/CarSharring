@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QSqlRecord>
 #include <QTableWidgetItem>
+#include <QRegularExpression>
 
 namespace Ui {
 class UserTableInsertWindow;

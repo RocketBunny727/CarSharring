@@ -91,6 +91,8 @@ void StaffTableInsertWindow::on_insertButton_clicked()
     emit playMenuSound();
 }
 
+#include <QRegularExpression>  // добавьте этот заголовок
+
 void StaffTableInsertWindow::insertData()
 {
     QString name = ui->nameLineEdit->text();
@@ -101,6 +103,26 @@ void StaffTableInsertWindow::insertData()
 
     if (name.isEmpty() || birthday.isEmpty() || post.isEmpty() || phone.isEmpty() || email.isEmpty()) {
         QMessageBox::critical(this, "Ошибка", "Все поля должны быть заполнены!");
+        return;
+    }
+
+    // Валидация даты рождения
+    QRegularExpression dateRegex("^\\d{4}-\\d{2}-\\d{2}$|^\\d{2}-\\d{2}-\\d{4}$");
+    if (!dateRegex.match(birthday).hasMatch()) {
+        QMessageBox::critical(this, "Ошибка", "Неверный формат даты рождения! Используйте формат yyyy-MM-dd или dd-MM-yyyy.");
+        return;
+    }
+
+    // Валидация номера телефона
+    QRegularExpression phoneRegex("^\\+?[1-9][0-9]{1,14}$");
+    if (!phoneRegex.match(phone).hasMatch()) {
+        QMessageBox::critical(this, "Ошибка", "Неверный формат номера телефона!");
+        return;
+    }
+
+    QRegularExpression emailRegex("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$");
+    if (!emailRegex.match(email).hasMatch()) {
+        QMessageBox::critical(this, "Ошибка", "Неверный формат email!");
         return;
     }
 
